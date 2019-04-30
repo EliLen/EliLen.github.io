@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
-  <title>Mr.EliLen</title>
+  <title>&lt;Center&gt;关于小站&lt;/center&gt; | Mr.EliLen</title>
   
   
   <meta name="description" content="Learning is like sailing">
@@ -68,6 +68,12 @@
         <li>
           <a class="nav home" href="/" id="home">
             <i class="fas fa-book fa-fw"></i>&nbsp;文章
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/categories" rel="nofollow" id="categories">
+            <i class="fas fa-folder-open fa-fw"></i>&nbsp;分类
           </a>
         </li>
       
@@ -171,6 +177,12 @@
             </li>
           
             <li>
+							<a class="nav flat-box" href="/categories" rel="nofollow" id="categories">
+								<i class="fas fa-folder-open fa-fw"></i>&nbsp;分类
+							</a>
+            </li>
+          
+            <li>
 							<a class="nav flat-box" href="/" id="home">
 								<i class="fas fa-clock fa-fw"></i>&nbsp;近期文章
 							</a>
@@ -229,7 +241,7 @@
   
     <h1 class="title">
       <a href="/about/index.html">
-        2019-04-29
+        <center>关于小站</center>
       </a>
     </h1>
   
@@ -238,58 +250,6 @@
       
       <div class="new-meta-box">
         
-          
-        
-          
-            
-  <div class="new-meta-item author">
-    <a href="https://github.com" rel="nofollow">
-      
-        <img src="http://pqpcdg3eo.bkt.clouddn.com/img/19.04.25/TX.jpg">
-      
-      <p>EliLen</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class="notlink">
-    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-04-29</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-
-          
-        
-          
-            
-  
-    <div class="new-meta-item browse busuanzi">
-      <a class="notlink">
-        <i class="fas fa-eye" aria-hidden="true"></i>
-        <p>
-          <span id="busuanzi_value_page_pv">
-            <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
-          </span>
-        </p>
-      </a>
-    </div>
-  
-
-
-          
-        
-          
-            
-
           
         
       </div>
@@ -302,7 +262,23 @@
 
       <section class="article typo">
         <div class="article-entry" itemprop="articleBody">
-          <h2 id="关于本人"><a href="#关于本人" class="headerlink" title="关于本人"></a>关于本人</h2><h2 id="关于本站"><a href="#关于本站" class="headerlink" title="关于本站"></a>关于本站</h2>
+          <h2 id="关于本人"><a href="#关于本人" class="headerlink" title="关于本人"></a>关于本人</h2><blockquote>
+<p>在校大学生一枚，学信安的，希望有这方面的大佬可以带带我。</p>
+</blockquote>
+<h2 id="关于本站"><a href="#关于本站" class="headerlink" title="关于本站"></a>关于本站</h2><blockquote>
+<p>本站用于学习和交流知识，非诚勿扰。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>主题使用： <a href="https://github.com/xaoxuu/hexo-theme-material-x">Material-X</a><br>主题问题：有任何问题可查看<a href="https://xaoxuu.com/wiki/material-x" target="_blank" rel="noopener"> 主题文档 </a></p>
+</blockquote>
+<hr>
+<blockquote>
+<p>想添加友链的朋友请将本站主页<code>https:///elilen.github.io</code>添加到贵站的友链中，然后在<a href="https://elilen.github.io/friends/" target="_blank" rel="noopener">我的友链</a>页留言，我看到后会及时添加（只限非盈利性网站）。</p>
+</blockquote>
+<hr>
+<font face="STCAIYUN" size="42"><center>欢迎大佬</center></font>
+
         </div>
         
         
@@ -315,7 +291,19 @@
 
 
 
-  
+  <article class="post white-box comments">
+    <section class="article typo">
+      <h4><i class="fas fa-comments fa-fw" aria-hidden="true"></i>&nbsp;评论</h4>
+      
+      
+      
+        <section id="comments">
+          <div id="gitalk-container"></div>
+        </section>
+      
+      
+    </section>
+  </article>
 
 
   
@@ -637,6 +625,23 @@
 
 
 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: "a83cb0665e544da072d1",
+      clientSecret: "d5e6fc66bfcd25fa9614ebe0172ec770382a876e",
+      repo: "git@github.com:EliLen/EliLen.github.io.git",
+      owner: "EliLen",
+      admin: "EliLen",
+      
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+      
+      distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+    gitalk.render('gitalk-container');
+  </script>
+
 
 
 
@@ -759,5 +764,5 @@
 
 
   <script>setLoadingBarProgress(100);</script>
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"left","width":210,"height":400},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"live2d-widget-model-z16"},"display":{"position":"left","width":210,"height":400},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
 </html>
