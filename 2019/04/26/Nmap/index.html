@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
-  <title>Category: daily | Mr.EliLen</title>
+  <title>Namp使用 | Mr.EliLen</title>
   
   
   <meta name="description" content="Learning is like sailing">
@@ -48,7 +48,7 @@
   
   
   <div class="cover-wrapper">
-    <cover class="cover  half">
+    <cover class="cover post half">
       
         
   <h1 class="title">Eli Len</h1>
@@ -226,32 +226,19 @@
 
   <div class="l_body">
     <div class='body-wrapper'>
-      
-<div class="l_main">
+      <div class="l_main">
   
-    
-      
-  <section class="post-list">
-    
-      
-        
-          
-        
-      
-    
-    
-      
-        
-          <div class="post-wrapper">
-            <article class="post reveal ">
+
   
+    <article id="post" class="post white-box article-type-post" itemscope itemprop="blogPost">
+      
 
 
   <section class="meta">
     
       
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.7.0/dist/APlayer.min.css">
-  <div class="aplayer" data-theme data-mini="true" data-autoplay="true" data-mode="circulation" data-server="netease" data-type="song" data-id="139774" data-volume="0.7">
+  <div class="aplayer" data-theme data-mini="true" data-mode="circulation" data-server="netease" data-type="song" data-id="139774" data-volume="0.7">
   </div>
   <script src="https://cdn.jsdelivr.net/npm/aplayer@1.7.0/dist/APlayer.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/meting@1.1.0/dist/Meting.min.js"></script>
@@ -262,11 +249,13 @@
     <div class="meta" id="header-meta">
       
         
-  <h2 class="title">
-    <a href="/2019/04/26/Blog/">
-      Blog美化
-    </a>
-  </h2>
+  
+    <h1 class="title">
+      <a href="/2019/04/26/Nmap/">
+        Namp使用
+      </a>
+    </h1>
+  
 
 
       
@@ -302,9 +291,9 @@
             
   
   <div class="new-meta-item category">
-    <a href="/categories/Life/daily/" rel="nofollow">
+    <a href="/categories/Study/Tools/" rel="nofollow">
       <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>Life&nbsp;/&nbsp;daily</p>
+      <p>Study&nbsp;/&nbsp;Tools</p>
     </a>
   </div>
 
@@ -313,6 +302,19 @@
         
           
             
+  
+    <div class="new-meta-item browse busuanzi">
+      <a class="notlink">
+        <i class="fas fa-eye" aria-hidden="true"></i>
+        <p>
+          <span id="busuanzi_value_page_pv">
+            <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
+          </span>
+        </p>
+      </a>
+    </div>
+  
+
 
           
         
@@ -329,46 +331,419 @@
   </section>
 
 
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      <p>踏上美化博客的不归路<br>
-      
-        <div class="readmore">
-          <a href="/2019/04/26/Blog/" class="flat-box">
-            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            阅读全文
-          </a>
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          <font size="4">简单的namp使用手册</font>
+
+<a id="more"></a>
+<h2 id="Nmap全面扫描"><a href="#Nmap全面扫描" class="headerlink" title="Nmap全面扫描"></a><strong>Nmap全面扫描</strong></h2><ul>
+<li>单个主机</li>
+</ul>
+<p>nmap 192.168.10.10 （等同于全开）</p>
+<ul>
+<li>多个主机</li>
+</ul>
+<p>nmap 192.168.10.11,20,110</p>
+<p>nmap 192.168.10.10,172.168.10.11</p>
+<p>nmap 192.168.10.1-254</p>
+<p>nmap 192.168.10.1/24  (整个子网)</p>
+<ul>
+<li>扫描文件里的IP</li>
+</ul>
+<p>nmap -iL ip.txt</p>
+<ul>
+<li>排除IP</li>
+</ul>
+<p>nmap 192.168.10.1-254 –exclude 192.168.10.5-11</p>
+<ul>
+<li>排除文件中的IP</li>
+</ul>
+<p>nmap 192.168.10.1-254 –exclude exip.txt</p>
+<ul>
+<li>随机找几个IP进行扫描</li>
+</ul>
+<p>nmap -iR 10 -p22</p>
+<ul>
+<li>Nmap -T4 -A -v ip</li>
+</ul>
+<p>-T4: 指定扫描时使用的时序(1-6，越大越快)</p>
+<p>-A：使用进攻性方式扫描</p>
+<p>-v：显示侦测时的详细信息</p>
+<p><br></p>
+<h2 id="Nmap主机发现"><a href="#Nmap主机发现" class="headerlink" title="Nmap主机发现"></a><strong>Nmap主机发现</strong></h2><p>-sL：只列举IP，不进行主机发现（list scan）</p>
+<p>-sn：只进行主机发现，不进行端口扫描（探测存活主机）（ping scan）</p>
+<p>-Pn：跳过主机发现，直接扫描端口（不判断主机是否在线）</p>
+<p>-sP：仅使用Ping协议（主机数量大）</p>
+<p>-n：不用DNS解析，加快扫描速度</p>
+<p>-R：总是进行DNS解析</p>
+<p>–dns-servers &lt;serv1[,serv2],…&gt;: 指定DNS服务器。   –system-dns: 指定使用系统的DNS服务器   –traceroute: 追踪每个路由节点 </p>
+<p><br></p>
+<h2 id="Nmap端口发现"><a href="#Nmap端口发现" class="headerlink" title="Nmap端口发现"></a><strong>Nmap端口发现</strong></h2><p><strong>–默认扫描常见的1000个端口–</strong></p>
+<p>–端口状态–</p>
+<p>open：开放</p>
+<p>Closed：关闭</p>
+<p>Filtered：被防火墙屏蔽，无法确定状态</p>
+<p>Unfiltered：未被防火墙屏蔽，但仍无法确定状态</p>
+<p>Open|fiktered：开放或者是屏蔽</p>
+<p>Closed|filtered：关闭或者是屏蔽</p>
+<p>主机端口扫描方式：</p>
+<ul>
+<li>扫描ARP协议（和目标主机处于同一网段时）</li>
+</ul>
+<p>nmap -PR 192.168.10.11</p>
+<ul>
+<li>扫描TCP协议（对目标主机进行扫描）</li>
+</ul>
+<p>nmap -sS 192.168.10.11   半开(TCP SYN)扫描 不建立第三次会话（速度快，更安全）</p>
+<p>nmap -sT 192.168.10.11   全开(TCP Connect())扫描 </p>
+<p>nmap -sA 192.168.10.11   发送TCP的ACK包，可扫是否存活</p>
+<p>利用ACK扫描判断端口是否被过滤。针对ACK探测包，未被过滤的端口（无论打开、关闭）会回复RST包。</p>
+<p>nmap -sW 192.168.10.11  TCP windows扫描</p>
+<p>Window扫描方式只对某些TCPIP协议栈才有效。window扫描原理与ACK类似，发送ACK包探测目标端口，对回复的RST包中的Window size进行解析。在某些TCPIP协议栈实现中，关闭的端口在RST中会将Window size设置为0；而开放的端口将Window size设置成非0的值。</p>
+<ul>
+<li>秘密扫描方式来协助探测对方的TCP端口状态</li>
+</ul>
+<p>nmap -sN 192.168.10.11   TCP Null 扫描</p>
+<p>nmap -sF 192.168.10.11   发送FIN标志的数据包</p>
+<p>可以利用FIN扫描方式探测防火墙状态。FIN扫描方式用于识别端口是否关闭，收到RST回复说明该端口关闭，否则说明是open或filtered状态。</p>
+<ul>
+<li>扫描UDP协议（不常用，费时，不方便）</li>
+</ul>
+<p>nmap -sU 192.168.10.11</p>
+<p>主机端口参数：</p>
+<ul>
+<li>快速模式，仅扫描TOP 100的端口(-F：Fast mode)</li>
+</ul>
+<p>nmap -F 192.168.10.11</p>
+<ul>
+<li>全部端口</li>
+</ul>
+<p>nmap -p “*” 192.168.10.11</p>
+<ul>
+<li>指定端口(可连续)</li>
+</ul>
+<p>nmap -p20-25,443,3306 192.168.10.11</p>
+<ul>
+<li>前n个端口</li>
+</ul>
+<p>nmap –top-ports 10 192.168.10.11</p>
+<ul>
+<li>扫描指定频率以上的端口</li>
+</ul>
+<p>nmap –port-ratio （0-1之间）IP</p>
+<p><br></p>
+<h2 id="Nmap高级选项"><a href="#Nmap高级选项" class="headerlink" title="Nmap高级选项"></a><strong>Nmap高级选项</strong></h2><ul>
+<li>查看本地路由与接口（网络接口信息）-e <interface></interface></li>
+</ul>
+<p>nmap -iflist</p>
+<ul>
+<li>指定网口与IP地址</li>
+</ul>
+<p>nmap -e eth0 192.168.10.10</p>
+<ul>
+<li>扫描路由器TFTP</li>
+</ul>
+<p>nmap –sU –p69 –nvv target</p>
+<p>大多数路由器都支持TFTP协议(简单文件传输协议)，该协议常用于备份和恢复路由器的配置文件，运行在UDP 69端口上。使用上述命令可以探测出路由器是否开放TFTP。</p>
+<ul>
+<li>扫描思科路由器</li>
+</ul>
+<p>nmap -p1-25,80,512-515,2001,4001,6001,9001 10.20.0.1/16</p>
+<p>思科路由器会在上述端口中运行了常见的服务。列举出上述端口开放的主机，可以定位到路由器设备可能的IP地址及端口状态。</p>
+<p><strong>Nmap OS识别</strong></p>
+<ul>
+<li>nmap -O 192.168.10.11</li>
+</ul>
+<p><strong>Nmap服务版本识别</strong></p>
+<ul>
+<li>nmap -sV 192.168.10.11</li>
+</ul>
+<p><strong>Nmap输出</strong></p>
+<ul>
+<li>扫描结果保存为XML文件</li>
+</ul>
+<p>nmap -oX Report.xml 192.168.10.11</p>
+<ul>
+<li>只输出open的端口</li>
+</ul>
+<p>nmap –open 192.168.10.11</p>
+<p><br></p>
+<h2 id="Nmap脚本扫描"><a href="#Nmap脚本扫描" class="headerlink" title="Nmap脚本扫描"></a><strong>Nmap脚本扫描</strong></h2><p><strong>Nmap提供的命令行参数：：</strong></p>
+<p>-sC： 等价–script=default，使用默认类别的脚本进行扫描</p>
+<p>–script=&lt;Lua scripts&gt;:&lt;Lua scripts&gt; 使用某个和某类脚本扫描，支持通配符</p>
+<p>–script-args=&lt;n1=v1,[n2=v2,..]&gt; 为脚本提供默认参数</p>
+<p>–script-args-file=filename 使用文件夹为脚本提供参数</p>
+<p>–script-tarce 显示脚本执行过程中发送与接收的数据</p>
+<p>–script-updatedb：更新脚本数据库</p>
+<p>–script-help=&lt;scripts &gt;显示脚本的帮助信息，其中&lt;scripts&gt;可以用逗号分隔</p>
+<p><br></p>
+<p><strong>nmap脚本的分类</strong></p>
+<p>在调用nmap脚本之前，我们可以先进入<strong>script</strong>目录，用<strong>tab</strong>键自动填充来查看有哪些脚本可用</p>
+<p><code>ls /usr/share/nmap/script/mysql-    //双击tab</code></p>
+<ul>
+<li>扫描时根据需要设置 –script=类别 ：</li>
+</ul>
+<p>auth: 负责处理鉴权证书（绕开鉴权）的脚本</p>
+<p>broadcast: 在局域网内探查更多服务开启状况，如dhcp/dns/sqlserver等服务</p>
+<p>brute: 提供暴力破解方式，针对常见的应用如http/snmp等</p>
+<p>default: 使用-sC或-A选项扫描时候默认的脚本，提供基本脚本扫描能力</p>
+<p>discovery: 对网络进行更多的信息，如SMB枚举、SNMP查询等</p>
+<p>dos: 用于进行拒绝服务攻击</p>
+<p>exploit: 利用已知的漏洞入侵系统</p>
+<p>external: 利用第三方的数据库或资源，例如进行whois解析</p>
+<p>fuzzer: 模糊测试的脚本，发送异常的包到目标机，探测出潜在漏洞 </p>
+<p>intrusive: 入侵性的脚本，此类脚本可能引发对方的IDS/IPS的记录或屏蔽</p>
+<p>safe: 此类与intrusive相反，属于安全性脚本</p>
+<p>malware: 探测目标机是否感染了病毒、开启了后门等信息</p>
+<p>version: 负责增强服务与版本扫描（Version Detection）功能的脚本</p>
+<p>vuln: 负责检查目标机是否有常见的漏洞（Vulnerability），如是否有MS08_067</p>
+<p><br></p>
+<p><strong>0x01 nmap按脚本分类扫描</strong></p>
+<p>（1）nmap –script=auth 192.168.10.10</p>
+<p>负责处理鉴权证书（绕开鉴权）的脚本,也可以作为检测部分应用弱口令</p>
+<p>（2）nmap –script=brute 192.168.10.10</p>
+<p>提供暴力破解的方式，可对数据库，smb，snmp等进行简单的暴力猜解</p>
+<p>（3）nmap –script=default 192.168.137.<em> 或者 nmap -sC 192.168.137.</em></p>
+<p>默认脚本扫描，主要收集各种应用服务的信息，收集后，在针对具体服务进行攻击</p>
+<p>（4）nmap –script=vuln 192.168.10.10</p>
+<p>检查是否存在常见漏洞</p>
+<p>（5）nmap -n -p445 –script=broadcast 192.168.10.10</p>
+<p>在局域网探查更多服务开启状况</p>
+<p>（6）nmap –script=external 202.103.243.110</p>
+<p>利用第三方的数据库或资源，例如进行whois解析</p>
+<p><br></p>
+<p><strong>0x02 nmap按应用服务扫描</strong></p>
+<p><strong>（1）vnc扫描</strong></p>
+<ul>
+<li>检查vnc bypass</li>
+</ul>
+<p>nmap –script=realvnc-auth-bypass 192.168.10.10</p>
+<ul>
+<li>检查vnc认证方式</li>
+</ul>
+<p>nmap –script=vnc-auth 192.168.10.10</p>
+<ul>
+<li>获取vnc信息</li>
+</ul>
+<p>nmap –script=vnc-info 192.168.10.10</p>
+<p><strong>（2）smb扫描</strong></p>
+<ul>
+<li>smb破解</li>
+</ul>
+<p>nmap –script=smb-brute.nse 192.168.10.10</p>
+<ul>
+<li>smb字典破解</li>
+</ul>
+<p>nmap –script=smb-brute.nse –script-args=userdb=/var/passwd,passdb=/var/passwd IP</p>
+<ul>
+<li>已知几个严重漏洞</li>
+</ul>
+<p>nmap –script=smb-check-vulns.nse –script-args=unsafe=1 192.168.10.10</p>
+<ul>
+<li>查看共享目录</li>
+</ul>
+<p>nmap -p445 –script=smb-ls –script-args=share=e$,path=\,subuser=test,smbpass=test IP</p>
+<ul>
+<li>查询主机一些敏感信息（注：需下载nmap_service）</li>
+</ul>
+<p>nmap -p445 –script=smb-psexec –script-args=smbuser=test,smbpass=test IP</p>
+<ul>
+<li>查看会话</li>
+</ul>
+<p>nmap -p445 –script=smb-enum-sessions.nse –script-args=smbuser=test,smbpass=test IP</p>
+<ul>
+<li>系统信息</li>
+</ul>
+<p>nmap -n -p445 –script=smb-os-discovery.nse –script-args=smbuser=test,smbpass=test IP</p>
+<p><strong>(3)Mssql扫描</strong></p>
+<ul>
+<li>猜解mssql用户名和密码</li>
+</ul>
+<p>nmap -p1433 –script=ms-sql-brute.nes –script-args=userdb=/var/user,passdb=/var/passwd IP</p>
+<ul>
+<li>xp_cmdshell执行命令</li>
+</ul>
+<p>nmap -p1433 –script=ms-sql-xp-cmdshell.nse –script-args=mssql.username=sa，mssql.password=sa，ms-sql-xp-cmdshell.cmd=”net user” 192.168.10.10</p>
+<ul>
+<li>dumphash值</li>
+</ul>
+<p>nmap -p1433 –script=ms-sql-dump-hashes.nse –script-srgs=mssql.username=sa，mssql.passwd=sa 192.168.10.10</p>
+<p><strong>（4）Mysql扫描</strong></p>
+<ul>
+<li>扫描root空口令</li>
+</ul>
+<p>nmap -p3306 –script=mysql-empty-password.nse 192.168.10.10</p>
+<ul>
+<li>列出所用mysql用户</li>
+</ul>
+<p>nmap -p3306 –script=mysql-users.nse –script-args=mysqluser=root 192.168.10.10</p>
+<ul>
+<li>支持同一应用的所有脚本扫描</li>
+</ul>
+<p>nmap –script=mysql-* 192.168.10.10</p>
+<p><strong>（5）Oracle扫描</strong></p>
+<ul>
+<li>oracle sid 扫描</li>
+</ul>
+<p>nmap -p1521-1560 –script=oracle-sid-brute.nse 192.168.10.10</p>
+<ul>
+<li>oracle弱口令破解</li>
+</ul>
+<p>nmap -p1521 –script=oracle-burte.nse –script-args=oracle-brute.sid=ORCL,userdb=/var/username,passdb=/var/passwd 192.168.10.10</p>
+<p><br><br></p>
+
         </div>
+        
+          
+
+
+  <section class="meta" id="footer-meta">
+    <hr>
+    <div class="new-meta-box">
       
-    </p></div>
-    
-      <div class="full-width auto-padding tags">
         
-          <a href="/tags/hexo/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>hexo</a>
-        
-          <a href="/tags/随笔/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>随笔</a>
-        
-      </div>
-    
-  </section>
-</article>
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-05-09T19:23:32+08:00">
+  <a class="notlink">
+    <i class="fas fa-clock" aria-hidden="true"></i>
+    <p>最后更新于 2019年5月9日</p>
+  </a>
+</div>
 
-          </div>
         
       
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/namp/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>namp</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/kali/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>kali</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
     
+      
+        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Elilen.github.io/2019/04/26/Nmap/&title=Namp使用 | Mr.EliLen&pics=http://pqpcdg3eo.bkt.clouddn.com/img/19.04.25/TX.jpg&summary=简单的namp使用手册">
+          
+            <img src="/img/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://Elilen.github.io/2019/04/26/Nmap/&title=Namp使用 | Mr.EliLen&pics=http://pqpcdg3eo.bkt.clouddn.com/img/19.04.25/TX.jpg&summary=简单的namp使用手册">
+          
+            <img src="/img/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer" href="http://service.weibo.com/share/share.php?url=https://Elilen.github.io/2019/04/26/Nmap/&title=Namp使用 | Mr.EliLen&pics=http://pqpcdg3eo.bkt.clouddn.com/img/19.04.25/TX.jpg&summary=简单的namp使用手册">
+          
+            <img src="/img/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
   </section>
+
+
+        
+        
+            <div class="prev-next">
+                
+                    <section class="prev">
+                        <span class="art-item-left">
+                            <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页</h6>
+                            <h4>
+                                <a href="/2019/04/26/python-encode/" rel="prev" title="Python编码">
+                                  
+                                      Python编码
+                                  
+                                </a>
+                            </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <a class="tag" href="/tags/python编码/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>python编码</a>
+                                </h6>
+                            
+                        </span>
+                    </section>
+                
+                
+                    <section class="next">
+                        <span class="art-item-right" aria-hidden="true">
+                            <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
+                            <h4>
+                                <a href="/2019/04/26/Blog/" rel="prev" title="Blog美化">
+                                    
+                                        Blog美化
+                                    
+                                </a>
+                            </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <a class="tag" href="/tags/hexo/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>hexo</a> <a class="tag" href="/tags/随笔/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>随笔</a>
+                                </h6>
+                            
+                        </span>
+                    </section>
+                
+            </div>
+        
+      </section>
+    </article>
   
-    
-    <!-- 根据主题中的设置决定是否在archive中针对摘要部分的MathJax公式加载mathjax.js文件 -->
-    
-    
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box comments">
+    <section class="article typo">
+      <h4><i class="fas fa-comments fa-fw" aria-hidden="true"></i>&nbsp;评论</h4>
+      
+      
+      
+        <section id="comments">
+          <div id="gitalk-container"></div>
+        </section>
+      
+      
+    </section>
+  </article>
+
 
   
 
 
-    
-  
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'Namp使用',
+      tools: true
+    }
+  </script>
+
 
 </div>
 <aside class="l_side">
@@ -479,6 +854,20 @@
           
           
             
+  <section class="widget toc-wrapper">
+    
+<header class="pure">
+  <div><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
+  
+    <div class="wrapper"><a class="s-toc rightBtn" rel="external nofollow noopener noreferrer" href="javascript:void(0)"><i class="fas fa-thumbtack fa-fw"></i></a></div>
+  
+</header>
+
+    <div class="content pure">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Nmap全面扫描"><span class="toc-text">Nmap全面扫描</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Nmap主机发现"><span class="toc-text">Nmap主机发现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Nmap端口发现"><span class="toc-text">Nmap端口发现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Nmap高级选项"><span class="toc-text">Nmap高级选项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Nmap脚本扫描"><span class="toc-text">Nmap脚本扫描</span></a></li></ol>
+    </div>
+  </section>
+
 
           
         
@@ -680,6 +1069,23 @@
 
 
 
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: "408be724d0b58cd93c4e",
+      clientSecret: "7176fa9ab92c6ed1b816ce9029d53a5bf0d354f4",
+      repo: "elilen.github.io",
+      owner: "EliLen",
+      admin: "EliLen",
+      
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+      
+      distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+    gitalk.render('gitalk-container');
+  </script>
 
 
 
