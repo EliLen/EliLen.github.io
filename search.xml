@@ -1,111 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search> 
-  
-  
-    
-    <entry>
-      <title>Python编码</title>
-      <link href="/2019/04/26/python-encode/"/>
-      <url>/2019/04/26/python-encode/</url>
-      
-        <content type="html"><![CDATA[<p>python编码问题有些复杂</p><a id="more"></a>]]></content>
-      
-      
+<search>
+  <entry>
+    <title><![CDATA[Python编码]]></title>
+    <url>%2F2019%2F04%2F26%2Fpython-encode%2F</url>
+    <content type="text"><![CDATA[python中遇到的编码问题 encode(编码): 按照某种规则将”文本”转换为”字节流”。python3中表示:unicode变成str decode(解码): 按照某种规则将”字节流”转换成”文本”。python3中表示:str变成unicode]]></content>
       <categories>
-          
-          <category> Study </category>
-          
-          <category> python </category>
-          
+        <category>Study</category>
+        <category>python</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> python编码 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Blog心累历程</title>
-      <link href="/2019/04/26/Blog/"/>
-      <url>/2019/04/26/Blog/</url>
-      
-        <content type="html"><![CDATA[<p>搭建博客的心累历程<br><a id="more"></a></p><h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>从想搭博客开始，已经过了将近一个月了，直到今天晚上才完成，真的是好心累啊。<br>各种崩盘各种难受，可能是我前端学的太菜了吧，我用了整整六天的时间，来完成这么一个大工程，最开始只是想好好的玩一下，结果。。。。。。。。哎，一言难尽啊，总结两点，第一不要想优化博客，第二请查看第一条。 ….手动哭….</p><h2 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h2>]]></content>
-      
-      
+      <tags>
+        <tag>python编码</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Blog心累历程]]></title>
+    <url>%2F2019%2F04%2F26%2FBlog%2F</url>
+    <content type="text"><![CDATA[搭建博客的心累历程 开始从想搭博客开始，已经过了将近一个月了，直到今天晚上才完成，真的是好心累啊。各种崩盘各种难受，可能是我前端学的太菜了吧，我用了整整六天的时间，来完成这么一个大工程，最开始只是想好好的玩一下，结果。。。。。。。。哎，一言难尽啊，总结两点，第一不要想优化博客，第二请查看第一条。 ….手动哭…. 结束]]></content>
       <categories>
-          
-          <category> Life </category>
-          
-          <category> daily </category>
-          
+        <category>Life</category>
+        <category>daily</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> hexo </tag>
-            
-            <tag> 随笔 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>国风</title>
-      <link href="/2019/04/25/gf-img/"/>
-      <url>/2019/04/25/gf-img/</url>
-      
-        <content type="html"><![CDATA[<p>一组好看的国风动漫 QAQ</p><a id="more"></a><fancybox><br><br><img src="http://pqpcdg3eo.bkt.clouddn.com/img/19.04.25/gfa.jpg?imageView2/2/w/900/h/1000/p/100!" alt><br><br><img src="http://pqpcdg3eo.bkt.clouddn.com/img/19.04.25/gfb.jpg?imageView2/2/w/900/h/1000/p/100!" alt><br><br><img src="http://pqpcdg3eo.bkt.clouddn.com/img/19.04.25/gfc.jpg?imageView2/2/w/900/h/1000/p/100!" alt><br></fancybox>]]></content>
-      
-      
+      <tags>
+        <tag>hexo</tag>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[国风]]></title>
+    <url>%2F2019%2F04%2F25%2Fgf-img%2F</url>
+    <content type="text"><![CDATA[一组好看的国风动漫 QAQ]]></content>
       <categories>
-          
-          <category> Life </category>
-          
-          <category> img </category>
-          
+        <category>Life</category>
+        <category>img</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 国风动漫 </tag>
-            
-            <tag> image </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Hello World</title>
-      <link href="/2019/04/18/hello-world/"/>
-      <url>/2019/04/18/hello-world/</url>
-      
-        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><a id="more"></a><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> hexo </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-  
-  
+      <tags>
+        <tag>国风动漫</tag>
+        <tag>image</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2F2019%2F04%2F18%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
 </search>
