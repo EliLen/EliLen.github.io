@@ -376,7 +376,9 @@
 <p>-sP：仅使用Ping协议（主机数量大）</p>
 <p>-n：不用DNS解析，加快扫描速度</p>
 <p>-R：总是进行DNS解析</p>
-<p>–dns-servers &lt;serv1[,serv2],…&gt;: 指定DNS服务器。   –system-dns: 指定使用系统的DNS服务器   –traceroute: 追踪每个路由节点 </p>
+<p>–dns-servers &lt;serv1[,serv2],…&gt;: 指定DNS服务器。   </p>
+<p>–system-dns: 指定使用系统的DNS服务器   </p>
+<p>–traceroute: 追踪每个路由节点 </p>
 <p><br></p>
 <h2 id="Nmap端口发现"><a href="#Nmap端口发现" class="headerlink" title="Nmap端口发现"></a><strong>Nmap端口发现</strong></h2><p><strong>–默认扫描常见的1000个端口–</strong></p>
 <p>–端口状态–</p>
@@ -386,7 +388,7 @@
 <p>Unfiltered：未被防火墙屏蔽，但仍无法确定状态</p>
 <p>Open|fiktered：开放或者是屏蔽</p>
 <p>Closed|filtered：关闭或者是屏蔽</p>
-<p>主机端口扫描方式：</p>
+<p><strong>主机端口扫描方式：</strong></p>
 <ul>
 <li>扫描ARP协议（和目标主机处于同一网段时）</li>
 </ul>
@@ -394,23 +396,23 @@
 <ul>
 <li>扫描TCP协议（对目标主机进行扫描）</li>
 </ul>
-<p>nmap -sS 192.168.10.11   半开(TCP SYN)扫描 不建立第三次会话（速度快，更安全）</p>
-<p>nmap -sT 192.168.10.11   全开(TCP Connect())扫描 </p>
-<p>nmap -sA 192.168.10.11   发送TCP的ACK包，可扫是否存活</p>
-<p>利用ACK扫描判断端口是否被过滤。针对ACK探测包，未被过滤的端口（无论打开、关闭）会回复RST包。</p>
-<p>nmap -sW 192.168.10.11  TCP windows扫描</p>
-<p>Window扫描方式只对某些TCPIP协议栈才有效。window扫描原理与ACK类似，发送ACK包探测目标端口，对回复的RST包中的Window size进行解析。在某些TCPIP协议栈实现中，关闭的端口在RST中会将Window size设置为0；而开放的端口将Window size设置成非0的值。</p>
+<p>nmap -sS 192.168.10.11   –半开(TCP SYN)扫描 不建立第三次会话（速度快，更安全）–</p>
+<p>nmap -sT 192.168.10.11   –全开(TCP Connect())扫描 –</p>
+<p>nmap -sA 192.168.10.11   –发送TCP的ACK包，可扫是否存活–</p>
+<p>–利用ACK扫描判断端口是否被过滤。针对ACK探测包，未被过滤的端口（无论打开、关闭）会回复RST包。–</p>
+<p>nmap -sW 192.168.10.11  TCP –windows扫描–</p>
+<p>—Window扫描方式只对某些TCPIP协议栈才有效。window扫描原理与ACK类似，发送ACK包探测目标端口，对回复的RST包中的Window size进行解析。在某些TCPIP协议栈实现中，关闭的端口在RST中会将Window size设置为0；而开放的端口将Window size设置成非0的值。—</p>
 <ul>
 <li>秘密扫描方式来协助探测对方的TCP端口状态</li>
 </ul>
-<p>nmap -sN 192.168.10.11   TCP Null 扫描</p>
-<p>nmap -sF 192.168.10.11   发送FIN标志的数据包</p>
-<p>可以利用FIN扫描方式探测防火墙状态。FIN扫描方式用于识别端口是否关闭，收到RST回复说明该端口关闭，否则说明是open或filtered状态。</p>
+<p>nmap -sN 192.168.10.11   –TCP Null 扫描–</p>
+<p>nmap -sF 192.168.10.11   –发送FIN标志的数据包–</p>
+<p>—可以利用FIN扫描方式探测防火墙状态。FIN扫描方式用于识别端口是否关闭，收到RST回复说明该端口关闭，否则说明是open或filtered状态。—</p>
 <ul>
 <li>扫描UDP协议（不常用，费时，不方便）</li>
 </ul>
 <p>nmap -sU 192.168.10.11</p>
-<p>主机端口参数：</p>
+<p><strong>主机端口参数：</strong></p>
 <ul>
 <li>快速模式，仅扫描TOP 100的端口(-F：Fast mode)</li>
 </ul>
@@ -430,10 +432,10 @@
 <ul>
 <li>扫描指定频率以上的端口</li>
 </ul>
-<p>nmap –port-ratio （0-1之间）IP</p>
+<p>nmap –port-ratio（0-1之间） 192.168.10.11</p>
 <p><br></p>
 <h2 id="Nmap高级选项"><a href="#Nmap高级选项" class="headerlink" title="Nmap高级选项"></a><strong>Nmap高级选项</strong></h2><ul>
-<li>查看本地路由与接口（网络接口信息）-e <interface></interface></li>
+<li>查看本地路由与接口（网络接口信息）-e &lt;interface&gt;</li>
 </ul>
 <p>nmap -iflist</p>
 <ul>
@@ -500,29 +502,29 @@
 <p><br></p>
 <p><strong>0x01 nmap按脚本分类扫描</strong></p>
 <ul>
-<li>nmap –script=auth 192.168.10.10</li>
+<li>负责处理鉴权证书（绕开鉴权）的脚本,也可以作为检测部分应用弱口令</li>
 </ul>
-<p>负责处理鉴权证书（绕开鉴权）的脚本,也可以作为检测部分应用弱口令</p>
+<p>nmap –script=auth 192.168.10.10</p>
 <ul>
-<li>nmap –script=brute 192.168.10.10</li>
+<li>提供暴力破解的方式，可对数据库，smb，snmp等进行简单的暴力猜解</li>
 </ul>
-<p>提供暴力破解的方式，可对数据库，smb，snmp等进行简单的暴力猜解</p>
+<p>nmap –script=brute 192.168.10.10</p>
 <ul>
-<li>nmap –script=default 192.168.137.<em> 或者 nmap -sC 192.168.137.</em></li>
+<li>默认脚本扫描，主要收集各种应用服务的信息，收集后，在针对具体服务进行攻击</li>
 </ul>
-<p>默认脚本扫描，主要收集各种应用服务的信息，收集后，在针对具体服务进行攻击</p>
+<p>nmap –script=default 192.168.137.<em> 或者 nmap -sC 192.168.137.</em></p>
 <ul>
-<li>nmap –script=vuln 192.168.10.10</li>
+<li>检查是否存在常见漏洞</li>
 </ul>
-<p>检查是否存在常见漏洞</p>
+<p>nmap –script=vuln 192.168.10.10</p>
 <ul>
-<li>nmap -n -p445 –script=broadcast 192.168.10.10</li>
+<li>在局域网探查更多服务开启状况</li>
 </ul>
-<p>在局域网探查更多服务开启状况</p>
+<p>nmap -n -p445 –script=broadcast 192.168.10.10</p>
 <ul>
-<li>nmap –script=external 202.103.243.110</li>
+<li>利用第三方的数据库或资源，例如进行whois解析</li>
 </ul>
-<p>利用第三方的数据库或资源，例如进行whois解析</p>
+<p>nmap –script=external 202.103.243.110</p>
 <p><br></p>
 <p><strong>0x02 nmap按应用服务扫描</strong></p>
 <p><strong>（1）vnc扫描</strong></p>
@@ -575,11 +577,11 @@
 <ul>
 <li>xp_cmdshell执行命令</li>
 </ul>
-<p>nmap -p1433 –script=ms-sql-xp-cmdshell.nse –script-args=mssql.username=sa，mssql.password=sa，ms-sql-xp-cmdshell.cmd=”net user” 192.168.10.10</p>
+<p>nmap -p1433 –script=ms-sql-xp-cmdshell.nse –script-args=mssql.username=sa,mssql.password=sa，ms-sql-xp-cmdshell.cmd=”net user” 192.168.10.10</p>
 <ul>
 <li>dumphash值</li>
 </ul>
-<p>nmap -p1433 –script=ms-sql-dump-hashes.nse –script-srgs=mssql.username=sa，mssql.passwd=sa 192.168.10.10</p>
+<p>nmap -p1433 –script=ms-sql-dump-hashes.nse –script-srgs=mssql.username=sa,mssql.passwd=sa 192.168.10.10</p>
 <p><strong>（4）Mysql扫描</strong></p>
 <ul>
 <li>扫描root空口令</li>
@@ -614,7 +616,7 @@
     <div class="new-meta-box">
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-05-10T18:57:07+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-05-10T19:13:56+08:00">
   <a class="notlink">
     <i class="fas fa-clock" aria-hidden="true"></i>
     <p>最后更新于 2019年5月10日</p>
