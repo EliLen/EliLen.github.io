@@ -499,17 +499,29 @@
 <p>vuln: 负责检查目标机是否有常见的漏洞（Vulnerability），如是否有MS08_067</p>
 <p><br></p>
 <p><strong>0x01 nmap按脚本分类扫描</strong></p>
-<p>（1）nmap –script=auth 192.168.10.10</p>
+<ul>
+<li>nmap –script=auth 192.168.10.10</li>
+</ul>
 <p>负责处理鉴权证书（绕开鉴权）的脚本,也可以作为检测部分应用弱口令</p>
-<p>（2）nmap –script=brute 192.168.10.10</p>
+<ul>
+<li>nmap –script=brute 192.168.10.10</li>
+</ul>
 <p>提供暴力破解的方式，可对数据库，smb，snmp等进行简单的暴力猜解</p>
-<p>（3）nmap –script=default 192.168.137.<em> 或者 nmap -sC 192.168.137.</em></p>
+<ul>
+<li>nmap –script=default 192.168.137.<em> 或者 nmap -sC 192.168.137.</em></li>
+</ul>
 <p>默认脚本扫描，主要收集各种应用服务的信息，收集后，在针对具体服务进行攻击</p>
-<p>（4）nmap –script=vuln 192.168.10.10</p>
+<ul>
+<li>nmap –script=vuln 192.168.10.10</li>
+</ul>
 <p>检查是否存在常见漏洞</p>
-<p>（5）nmap -n -p445 –script=broadcast 192.168.10.10</p>
+<ul>
+<li>nmap -n -p445 –script=broadcast 192.168.10.10</li>
+</ul>
 <p>在局域网探查更多服务开启状况</p>
-<p>（6）nmap –script=external 202.103.243.110</p>
+<ul>
+<li>nmap –script=external 202.103.243.110</li>
+</ul>
 <p>利用第三方的数据库或资源，例如进行whois解析</p>
 <p><br></p>
 <p><strong>0x02 nmap按应用服务扫描</strong></p>
@@ -602,10 +614,10 @@
     <div class="new-meta-box">
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-05-09T19:23:32+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-05-10T18:57:07+08:00">
   <a class="notlink">
     <i class="fas fa-clock" aria-hidden="true"></i>
-    <p>最后更新于 2019年5月9日</p>
+    <p>最后更新于 2019年5月10日</p>
   </a>
 </div>
 
