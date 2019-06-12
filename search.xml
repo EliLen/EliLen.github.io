@@ -1,142 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search> 
-  
-  
-    
-    <entry>
-      <title>Namp使用</title>
-      <link href="/2019/04/29/Nmap/"/>
-      <url>/2019/04/29/Nmap/</url>
-      
-        <content type="html"><![CDATA[<font size="4">简单的namp使用手册</font><a id="more"></a><h2 id="Nmap全面扫描"><a href="#Nmap全面扫描" class="headerlink" title="Nmap全面扫描"></a><strong>Nmap全面扫描</strong></h2><ul><li>单个主机</li></ul><p>nmap 192.168.10.10 （等同于全开）</p><ul><li>多个主机</li></ul><p>nmap 192.168.10.11,20,110</p><p>nmap 192.168.10.10,172.168.10.11</p><p>nmap 192.168.10.1-254</p><p>nmap 192.168.10.1/24  (整个子网)</p><ul><li>扫描文件里的IP</li></ul><p>nmap -iL ip.txt</p><ul><li>排除IP</li></ul><p>nmap 192.168.10.1-254 –exclude 192.168.10.5-11</p><ul><li>排除文件中的IP</li></ul><p>nmap 192.168.10.1-254 –exclude exip.txt</p><ul><li>随机找几个IP进行扫描</li></ul><p>nmap -iR 10 -p22</p><ul><li>Nmap -T4 -A -v ip</li></ul><p>-T4: 指定扫描时使用的时序(1-6，越大越快)</p><p>-A：使用进攻性方式扫描</p><p>-v：显示侦测时的详细信息</p><p><br></p><h2 id="Nmap主机发现"><a href="#Nmap主机发现" class="headerlink" title="Nmap主机发现"></a><strong>Nmap主机发现</strong></h2><p>-sL：只列举IP，不进行主机发现（list scan）</p><p>-sn：只进行主机发现，不进行端口扫描（探测存活主机）（ping scan）</p><p>-Pn：跳过主机发现，直接扫描端口（不判断主机是否在线）</p><p>-sP：仅使用Ping协议（主机数量大）</p><p>-n：不用DNS解析，加快扫描速度</p><p>-R：总是进行DNS解析</p><p>–dns-servers &lt;serv1[,serv2],…&gt;: 指定DNS服务器。   </p><p>–system-dns: 指定使用系统的DNS服务器   </p><p>–traceroute: 追踪每个路由节点 </p><p><br></p><h2 id="Nmap端口发现"><a href="#Nmap端口发现" class="headerlink" title="Nmap端口发现"></a><strong>Nmap端口发现</strong></h2><p><strong>–默认扫描常见的1000个端口–</strong></p><p>–端口状态–</p><p>open：开放</p><p>Closed：关闭</p><p>Filtered：被防火墙屏蔽，无法确定状态</p><p>Unfiltered：未被防火墙屏蔽，但仍无法确定状态</p><p>Open|fiktered：开放或者是屏蔽</p><p>Closed|filtered：关闭或者是屏蔽</p><p><strong>主机端口扫描方式：</strong></p><ul><li>扫描ARP协议（和目标主机处于同一网段时）</li></ul><p>nmap -PR 192.168.10.11</p><ul><li>扫描TCP协议（对目标主机进行扫描）</li></ul><p>nmap -sS 192.168.10.11   –半开(TCP SYN)扫描 不建立第三次会话（速度快，更安全）–</p><p>nmap -sT 192.168.10.11   –全开(TCP Connect())扫描 –</p><p>nmap -sA 192.168.10.11   –发送TCP的ACK包，可扫是否存活–</p><p>–利用ACK扫描判断端口是否被过滤。针对ACK探测包，未被过滤的端口（无论打开、关闭）会回复RST包。–</p><p>nmap -sW 192.168.10.11  TCP –windows扫描–</p><p>—Window扫描方式只对某些TCPIP协议栈才有效。window扫描原理与ACK类似，发送ACK包探测目标端口，对回复的RST包中的Window size进行解析。在某些TCPIP协议栈实现中，关闭的端口在RST中会将Window size设置为0；而开放的端口将Window size设置成非0的值。—</p><ul><li>秘密扫描方式来协助探测对方的TCP端口状态</li></ul><p>nmap -sN 192.168.10.11   –TCP Null 扫描–</p><p>nmap -sF 192.168.10.11   –发送FIN标志的数据包–</p><p>—可以利用FIN扫描方式探测防火墙状态。FIN扫描方式用于识别端口是否关闭，收到RST回复说明该端口关闭，否则说明是open或filtered状态。—</p><ul><li>扫描UDP协议（不常用，费时，不方便）</li></ul><p>nmap -sU 192.168.10.11</p><p><strong>主机端口参数：</strong></p><ul><li>快速模式，仅扫描TOP 100的端口(-F：Fast mode)</li></ul><p>nmap -F 192.168.10.11</p><ul><li>全部端口</li></ul><p>nmap -p “*” 192.168.10.11</p><ul><li>指定端口(可连续)</li></ul><p>nmap -p20-25,443,3306 192.168.10.11</p><ul><li>前n个端口</li></ul><p>nmap –top-ports 10 192.168.10.11</p><ul><li>扫描指定频率以上的端口</li></ul><p>nmap –port-ratio（0-1之间） 192.168.10.11</p><p><br></p><h2 id="Nmap高级选项"><a href="#Nmap高级选项" class="headerlink" title="Nmap高级选项"></a><strong>Nmap高级选项</strong></h2><ul><li>查看本地路由与接口（网络接口信息）-e &lt;interface&gt;</li></ul><p>nmap -iflist</p><ul><li>指定网口与IP地址</li></ul><p>nmap -e eth0 192.168.10.10</p><ul><li>扫描路由器TFTP</li></ul><p>nmap –sU –p69 –nvv target</p><p>—大多数路由器都支持TFTP协议(简单文件传输协议)，该协议常用于备份和恢复路由器的配置文件，运行在UDP 69端口上。使用上述命令可以探测出路由器是否开放TFTP。—</p><ul><li>扫描思科路由器</li></ul><p>nmap -p1-25,80,512-515,2001,4001,6001,9001 10.20.0.1/16</p><p>—思科路由器会在上述端口中运行了常见的服务。列举出上述端口开放的主机，可以定位到路由器设备可能的IP地址及端口状态。—</p><p><strong>Nmap OS识别</strong></p><ul><li>nmap -O 192.168.10.11</li></ul><p><strong>Nmap服务版本识别</strong></p><ul><li>nmap -sV 192.168.10.11</li></ul><p><strong>Nmap输出</strong></p><ul><li>扫描结果保存为XML文件</li></ul><p>nmap -oX Report.xml 192.168.10.11</p><ul><li>只输出open的端口</li></ul><p>nmap –open 192.168.10.11</p><p><br></p><h2 id="Nmap脚本扫描"><a href="#Nmap脚本扫描" class="headerlink" title="Nmap脚本扫描"></a><strong>Nmap脚本扫描</strong></h2><p><strong>Nmap提供的命令行参数：：</strong></p><p>-sC： 等价–script=default，使用默认类别的脚本进行扫描</p><p>–script=&lt;Lua scripts&gt;:&lt;Lua scripts&gt; 使用某个和某类脚本扫描，支持通配符</p><p>–script-args=&lt;n1=v1,[n2=v2,..]&gt; 为脚本提供默认参数</p><p>–script-args-file=filename 使用文件夹为脚本提供参数</p><p>–script-tarce 显示脚本执行过程中发送与接收的数据</p><p>–script-updatedb：更新脚本数据库</p><p>–script-help=&lt;scripts &gt;显示脚本的帮助信息，其中&lt;scripts&gt;可以用逗号分隔</p><p><br></p><p><strong>nmap脚本的分类</strong></p><p>在调用nmap脚本之前，我们可以先进入<strong>script</strong>目录，用<strong>tab</strong>键自动填充来查看有哪些脚本可用</p><p><code>ls /usr/share/nmap/script/mysql-    //双击tab</code></p><ul><li>扫描时根据需要设置 –script=类别 ：</li></ul><p>auth: 负责处理鉴权证书（绕开鉴权）的脚本</p><p>broadcast: 在局域网内探查更多服务开启状况，如dhcp/dns/sqlserver等服务</p><p>brute: 提供暴力破解方式，针对常见的应用如http/snmp等</p><p>default: 使用-sC或-A选项扫描时候默认的脚本，提供基本脚本扫描能力</p><p>discovery: 对网络进行更多的信息，如SMB枚举、SNMP查询等</p><p>dos: 用于进行拒绝服务攻击</p><p>exploit: 利用已知的漏洞入侵系统</p><p>external: 利用第三方的数据库或资源，例如进行whois解析</p><p>fuzzer: 模糊测试的脚本，发送异常的包到目标机，探测出潜在漏洞 </p><p>intrusive: 入侵性的脚本，此类脚本可能引发对方的IDS/IPS的记录或屏蔽</p><p>safe: 此类与intrusive相反，属于安全性脚本</p><p>malware: 探测目标机是否感染了病毒、开启了后门等信息</p><p>version: 负责增强服务与版本扫描（Version Detection）功能的脚本</p><p>vuln: 负责检查目标机是否有常见的漏洞（Vulnerability），如是否有MS08_067</p><p><br></p><p><strong>0x01 nmap按脚本分类扫描</strong></p><ul><li>负责处理鉴权证书（绕开鉴权）的脚本,也可以作为检测部分应用弱口令</li></ul><p>nmap –script=auth 192.168.10.10</p><ul><li>提供暴力破解的方式，可对数据库，smb，snmp等进行简单的暴力猜解</li></ul><p>nmap –script=brute 192.168.10.10</p><ul><li>默认脚本扫描，主要收集各种应用服务的信息，收集后，在针对具体服务进行攻击</li></ul><p>nmap –script=default 192.168.137.<em> 或者 nmap -sC 192.168.137.</em></p><ul><li>检查是否存在常见漏洞</li></ul><p>nmap –script=vuln 192.168.10.10</p><ul><li>在局域网探查更多服务开启状况</li></ul><p>nmap -n -p445 –script=broadcast 192.168.10.10</p><ul><li>利用第三方的数据库或资源，例如进行whois解析</li></ul><p>nmap –script=external 202.103.243.110</p><p><br></p><p><strong>0x02 nmap按应用服务扫描</strong></p><p><strong>（1）vnc扫描</strong></p><ul><li>检查vnc bypass</li></ul><p>nmap –script=realvnc-auth-bypass 192.168.10.10</p><ul><li>检查vnc认证方式</li></ul><p>nmap –script=vnc-auth 192.168.10.10</p><ul><li>获取vnc信息</li></ul><p>nmap –script=vnc-info 192.168.10.10</p><p><strong>（2）smb扫描</strong></p><ul><li>smb破解</li></ul><p>nmap –script=smb-brute.nse 192.168.10.10</p><ul><li>smb字典破解</li></ul><p>nmap –script=smb-brute.nse –script-args=userdb=/var/passwd,passdb=/var/passwd IP</p><ul><li>已知几个严重漏洞</li></ul><p>nmap –script=smb-check-vulns.nse –script-args=unsafe=1 192.168.10.10</p><ul><li>查看共享目录</li></ul><p>nmap -p445 –script=smb-ls –script-args=share=e$,path=\,subuser=test,smbpass=test IP</p><ul><li>查询主机一些敏感信息（注：需下载nmap_service）</li></ul><p>nmap -p445 –script=smb-psexec –script-args=smbuser=test,smbpass=test IP</p><ul><li>查看会话</li></ul><p>nmap -p445 –script=smb-enum-sessions.nse –script-args=smbuser=test,smbpass=test IP</p><ul><li>系统信息</li></ul><p>nmap -n -p445 –script=smb-os-discovery.nse –script-args=smbuser=test,smbpass=test IP</p><p><strong>(3)Mssql扫描</strong></p><ul><li>猜解mssql用户名和密码</li></ul><p>nmap -p1433 –script=ms-sql-brute.nes –script-args=userdb=/var/user,passdb=/var/passwd IP</p><ul><li>xp_cmdshell执行命令</li></ul><p>nmap -p1433 –script=ms-sql-xp-cmdshell.nse –script-args=mssql.username=sa,mssql.password=sa，ms-sql-xp-cmdshell.cmd=”net user” 192.168.10.10</p><ul><li>dumphash值</li></ul><p>nmap -p1433 –script=ms-sql-dump-hashes.nse –script-srgs=mssql.username=sa,mssql.passwd=sa 192.168.10.10</p><p><strong>（4）Mysql扫描</strong></p><ul><li>扫描root空口令</li></ul><p>nmap -p3306 –script=mysql-empty-password.nse 192.168.10.10</p><ul><li>列出所用mysql用户</li></ul><p>nmap -p3306 –script=mysql-users.nse –script-args=mysqluser=root 192.168.10.10</p><ul><li>支持同一应用的所有脚本扫描</li></ul><p>nmap –script=mysql-* 192.168.10.10</p><p><strong>（5）Oracle扫描</strong></p><ul><li>oracle sid 扫描</li></ul><p>nmap -p1521-1560 –script=oracle-sid-brute.nse 192.168.10.10</p><ul><li>oracle弱口令破解</li></ul><p>nmap -p1521 –script=oracle-burte.nse –script-args=oracle-brute.sid=ORCL,userdb=/var/username,passdb=/var/passwd 192.168.10.10</p><p><br><br></p>]]></content>
-      
-      
+<search>
+  <entry>
+    <title><![CDATA[Namp使用]]></title>
+    <url>%2F2019%2F04%2F29%2FNmap%2F</url>
+    <content type="text"><![CDATA[简单的namp使用手册 Nmap全面扫描 单个主机 nmap 192.168.10.10 （等同于全开） 多个主机 nmap 192.168.10.11,20,110 nmap 192.168.10.10,172.168.10.11 nmap 192.168.10.1-254 nmap 192.168.10.1/24 (整个子网) 扫描文件里的IP nmap -iL ip.txt 排除IP nmap 192.168.10.1-254 –exclude 192.168.10.5-11 排除文件中的IP nmap 192.168.10.1-254 –exclude exip.txt 随机找几个IP进行扫描 nmap -iR 10 -p22 Nmap -T4 -A -v ip -T4: 指定扫描时使用的时序(1-6，越大越快) -A：使用进攻性方式扫描 -v：显示侦测时的详细信息 Nmap主机发现-sL：只列举IP，不进行主机发现（list scan） -sn：只进行主机发现，不进行端口扫描（探测存活主机）（ping scan） -Pn：跳过主机发现，直接扫描端口（不判断主机是否在线） -sP：仅使用Ping协议（主机数量大） -n：不用DNS解析，加快扫描速度 -R：总是进行DNS解析 –dns-servers &lt;serv1[,serv2],…&gt;: 指定DNS服务器。 –system-dns: 指定使用系统的DNS服务器 –traceroute: 追踪每个路由节点 Nmap端口发现–默认扫描常见的1000个端口– –端口状态– open：开放 Closed：关闭 Filtered：被防火墙屏蔽，无法确定状态 Unfiltered：未被防火墙屏蔽，但仍无法确定状态 Open|fiktered：开放或者是屏蔽 Closed|filtered：关闭或者是屏蔽 主机端口扫描方式： 扫描ARP协议（和目标主机处于同一网段时） nmap -PR 192.168.10.11 扫描TCP协议（对目标主机进行扫描） nmap -sS 192.168.10.11 –半开(TCP SYN)扫描 不建立第三次会话（速度快，更安全）– nmap -sT 192.168.10.11 –全开(TCP Connect())扫描 – nmap -sA 192.168.10.11 –发送TCP的ACK包，可扫是否存活– –利用ACK扫描判断端口是否被过滤。针对ACK探测包，未被过滤的端口（无论打开、关闭）会回复RST包。– nmap -sW 192.168.10.11 TCP –windows扫描– —Window扫描方式只对某些TCPIP协议栈才有效。window扫描原理与ACK类似，发送ACK包探测目标端口，对回复的RST包中的Window size进行解析。在某些TCPIP协议栈实现中，关闭的端口在RST中会将Window size设置为0；而开放的端口将Window size设置成非0的值。— 秘密扫描方式来协助探测对方的TCP端口状态 nmap -sN 192.168.10.11 –TCP Null 扫描– nmap -sF 192.168.10.11 –发送FIN标志的数据包– —可以利用FIN扫描方式探测防火墙状态。FIN扫描方式用于识别端口是否关闭，收到RST回复说明该端口关闭，否则说明是open或filtered状态。— 扫描UDP协议（不常用，费时，不方便） nmap -sU 192.168.10.11 主机端口参数： 快速模式，仅扫描TOP 100的端口(-F：Fast mode) nmap -F 192.168.10.11 全部端口 nmap -p “*” 192.168.10.11 指定端口(可连续) nmap -p20-25,443,3306 192.168.10.11 前n个端口 nmap –top-ports 10 192.168.10.11 扫描指定频率以上的端口 nmap –port-ratio（0-1之间） 192.168.10.11 Nmap高级选项 查看本地路由与接口（网络接口信息）-e &lt;interface&gt; nmap -iflist 指定网口与IP地址 nmap -e eth0 192.168.10.10 扫描路由器TFTP nmap –sU –p69 –nvv target —大多数路由器都支持TFTP协议(简单文件传输协议)，该协议常用于备份和恢复路由器的配置文件，运行在UDP 69端口上。使用上述命令可以探测出路由器是否开放TFTP。— 扫描思科路由器 nmap -p1-25,80,512-515,2001,4001,6001,9001 10.20.0.1/16 —思科路由器会在上述端口中运行了常见的服务。列举出上述端口开放的主机，可以定位到路由器设备可能的IP地址及端口状态。— Nmap OS识别 nmap -O 192.168.10.11 Nmap服务版本识别 nmap -sV 192.168.10.11 Nmap输出 扫描结果保存为XML文件 nmap -oX Report.xml 192.168.10.11 只输出open的端口 nmap –open 192.168.10.11 Nmap脚本扫描Nmap提供的命令行参数：： -sC： 等价–script=default，使用默认类别的脚本进行扫描 –script=&lt;Lua scripts&gt;:&lt;Lua scripts&gt; 使用某个和某类脚本扫描，支持通配符 –script-args=&lt;n1=v1,[n2=v2,..]&gt; 为脚本提供默认参数 –script-args-file=filename 使用文件夹为脚本提供参数 –script-tarce 显示脚本执行过程中发送与接收的数据 –script-updatedb：更新脚本数据库 –script-help=&lt;scripts &gt;显示脚本的帮助信息，其中&lt;scripts&gt;可以用逗号分隔 nmap脚本的分类 在调用nmap脚本之前，我们可以先进入script目录，用tab键自动填充来查看有哪些脚本可用 ls /usr/share/nmap/script/mysql- //双击tab 扫描时根据需要设置 –script=类别 ： auth: 负责处理鉴权证书（绕开鉴权）的脚本 broadcast: 在局域网内探查更多服务开启状况，如dhcp/dns/sqlserver等服务 brute: 提供暴力破解方式，针对常见的应用如http/snmp等 default: 使用-sC或-A选项扫描时候默认的脚本，提供基本脚本扫描能力 discovery: 对网络进行更多的信息，如SMB枚举、SNMP查询等 dos: 用于进行拒绝服务攻击 exploit: 利用已知的漏洞入侵系统 external: 利用第三方的数据库或资源，例如进行whois解析 fuzzer: 模糊测试的脚本，发送异常的包到目标机，探测出潜在漏洞 intrusive: 入侵性的脚本，此类脚本可能引发对方的IDS/IPS的记录或屏蔽 safe: 此类与intrusive相反，属于安全性脚本 malware: 探测目标机是否感染了病毒、开启了后门等信息 version: 负责增强服务与版本扫描（Version Detection）功能的脚本 vuln: 负责检查目标机是否有常见的漏洞（Vulnerability），如是否有MS08_067 0x01 nmap按脚本分类扫描 负责处理鉴权证书（绕开鉴权）的脚本,也可以作为检测部分应用弱口令 nmap –script=auth 192.168.10.10 提供暴力破解的方式，可对数据库，smb，snmp等进行简单的暴力猜解 nmap –script=brute 192.168.10.10 默认脚本扫描，主要收集各种应用服务的信息，收集后，在针对具体服务进行攻击 nmap –script=default 192.168.137. 或者 nmap -sC 192.168.137. 检查是否存在常见漏洞 nmap –script=vuln 192.168.10.10 在局域网探查更多服务开启状况 nmap -n -p445 –script=broadcast 192.168.10.10 利用第三方的数据库或资源，例如进行whois解析 nmap –script=external 202.103.243.110 0x02 nmap按应用服务扫描 （1）vnc扫描 检查vnc bypass nmap –script=realvnc-auth-bypass 192.168.10.10 检查vnc认证方式 nmap –script=vnc-auth 192.168.10.10 获取vnc信息 nmap –script=vnc-info 192.168.10.10 （2）smb扫描 smb破解 nmap –script=smb-brute.nse 192.168.10.10 smb字典破解 nmap –script=smb-brute.nse –script-args=userdb=/var/passwd,passdb=/var/passwd IP 已知几个严重漏洞 nmap –script=smb-check-vulns.nse –script-args=unsafe=1 192.168.10.10 查看共享目录 nmap -p445 –script=smb-ls –script-args=share=e$,path=\,subuser=test,smbpass=test IP 查询主机一些敏感信息（注：需下载nmap_service） nmap -p445 –script=smb-psexec –script-args=smbuser=test,smbpass=test IP 查看会话 nmap -p445 –script=smb-enum-sessions.nse –script-args=smbuser=test,smbpass=test IP 系统信息 nmap -n -p445 –script=smb-os-discovery.nse –script-args=smbuser=test,smbpass=test IP (3)Mssql扫描 猜解mssql用户名和密码 nmap -p1433 –script=ms-sql-brute.nes –script-args=userdb=/var/user,passdb=/var/passwd IP xp_cmdshell执行命令 nmap -p1433 –script=ms-sql-xp-cmdshell.nse –script-args=mssql.username=sa,mssql.password=sa，ms-sql-xp-cmdshell.cmd=”net user” 192.168.10.10 dumphash值 nmap -p1433 –script=ms-sql-dump-hashes.nse –script-srgs=mssql.username=sa,mssql.passwd=sa 192.168.10.10 （4）Mysql扫描 扫描root空口令 nmap -p3306 –script=mysql-empty-password.nse 192.168.10.10 列出所用mysql用户 nmap -p3306 –script=mysql-users.nse –script-args=mysqluser=root 192.168.10.10 支持同一应用的所有脚本扫描 nmap –script=mysql-* 192.168.10.10 （5）Oracle扫描 oracle sid 扫描 nmap -p1521-1560 –script=oracle-sid-brute.nse 192.168.10.10 oracle弱口令破解 nmap -p1521 –script=oracle-burte.nse –script-args=oracle-brute.sid=ORCL,userdb=/var/username,passdb=/var/passwd 192.168.10.10]]></content>
       <categories>
-          
-          <category> Study </category>
-          
-          <category> Tools </category>
-          
+        <category>Study</category>
+        <category>Tools</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> namp </tag>
-            
-            <tag> kali </tag>
-            
-            <tag> tools </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Python编码</title>
-      <link href="/2019/04/26/python-encode/"/>
-      <url>/2019/04/26/python-encode/</url>
-      
-        <content type="html"><![CDATA[<font size="4">python中遇到的编码问题</font><a id="more"></a><p><strong>encode(编码):</strong></p><blockquote><p>按照某种规则将”文本”转换为”字节流”。python3中表示:unicode变成str</p></blockquote><p><strong>decode(解码):</strong></p><blockquote><p>按照某种规则将”字节流”转换成”文本”。python3中表示:str变成unicode</p></blockquote><hr><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line">print(<span class="string">"nishibushisha"</span>)</span><br></pre></td></tr></table></figure>]]></content>
-      
-      
+      <tags>
+        <tag>namp</tag>
+        <tag>kali</tag>
+        <tag>tools</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Python编码]]></title>
+    <url>%2F2019%2F04%2F26%2Fpython-encode%2F</url>
+    <content type="text"><![CDATA[python中遇到的编码问题 encode(编码): 按照某种规则将”文本”转换为”字节流”。python3中表示:unicode变成str decode(解码): 按照某种规则将”字节流”转换成”文本”。python3中表示:str变成unicode 123import sysimport osprint("nishibushisha")]]></content>
       <categories>
-          
-          <category> Study </category>
-          
-          <category> python </category>
-          
+        <category>Study</category>
+        <category>python</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> python编码 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Blog美化</title>
-      <link href="/2019/04/26/Blog/"/>
-      <url>/2019/04/26/Blog/</url>
-      
-        <content type="html"><![CDATA[<p>踏上美化博客的不归路<br><a id="more"></a></p><h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>从想搭博客开始，已经过了将近一个月了，直到今天晚上才完成，真的是好心累啊。<br>各种崩盘各种难受，可能是我前端学的太菜了吧，我用了整整六天的时间，来完成这么一个大工程，最开始只是想好好的玩一下，结果。。。。。。。。哎，一言难尽啊，总结两点，第一不要想优化博客，第二请查看第一条。 ….手动哭….</p><h2 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h2>]]></content>
-      
-      
+      <tags>
+        <tag>python编码</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Blog美化]]></title>
+    <url>%2F2019%2F04%2F26%2FBlog%2F</url>
+    <content type="text"><![CDATA[踏上美化博客的不归路 开始从想搭博客开始，已经过了将近一个月了，直到今天晚上才完成，真的是好心累啊。各种崩盘各种难受，可能是我前端学的太菜了吧，我用了整整六天的时间，来完成这么一个大工程，最开始只是想好好的玩一下，结果。。。。。。。。哎，一言难尽啊，总结两点，第一不要想优化博客，第二请查看第一条。 ….手动哭…. 结束]]></content>
       <categories>
-          
-          <category> Life </category>
-          
-          <category> daily </category>
-          
+        <category>Life</category>
+        <category>daily</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> hexo </tag>
-            
-            <tag> 随笔 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>国风</title>
-      <link href="/2019/04/25/gf-img/"/>
-      <url>/2019/04/25/gf-img/</url>
-      
-        <content type="html"><![CDATA[<p>一组好看的国风动漫 QAQ</p><a id="more"></a><fancybox><br><br><img src="http://pqpcdg3eo.bkt.clouddn.com/img/19.04.25/gfa.jpg?imageView2/2/w/900/h/1000/p/100!" alt><br><br><img src="http://pqpcdg3eo.bkt.clouddn.com/img/19.04.25/gfb.jpg?imageView2/2/w/900/h/1000/p/100!" alt><br><br><img src="http://pqpcdg3eo.bkt.clouddn.com/img/19.04.25/gfc.jpg?imageView2/2/w/900/h/1000/p/100!" alt><br></fancybox>]]></content>
-      
-      
+      <tags>
+        <tag>hexo</tag>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[国风]]></title>
+    <url>%2F2019%2F04%2F25%2Fgf-img%2F</url>
+    <content type="text"><![CDATA[一组好看的国风动漫 QAQ]]></content>
       <categories>
-          
-          <category> Life </category>
-          
-          <category> img </category>
-          
+        <category>Life</category>
+        <category>img</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 国风动漫 </tag>
-            
-            <tag> image </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Hello World</title>
-      <link href="/2019/04/18/hello-world/"/>
-      <url>/2019/04/18/hello-world/</url>
-      
-        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><a id="more"></a><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> hexo </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-  
-  
+      <tags>
+        <tag>国风动漫</tag>
+        <tag>image</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2F2019%2F04%2F18%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
 </search>
