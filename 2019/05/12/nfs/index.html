@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
-  <title>精选歌单 | Mr.EliLen</title>
+  <title>NFS笔记 | Mr.EliLen</title>
   
   <meta name="keywords" content="Web python php">
   
@@ -52,7 +52,7 @@
   
   
   <div class="cover-wrapper">
-    <cover class="cover page half">
+    <cover class="cover post half">
       
         
   <h1 class="title">Eli Len</h1>
@@ -234,11 +234,20 @@
   
 
   
-    <article id="page" class="post white-box article-type-page" itemscope itemprop="blogPost">
+    <article id="post" class="post white-box article-type-post" itemscope itemprop="blogPost">
       
 
 
   <section class="meta">
+    
+      
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.7.0/dist/APlayer.min.css">
+  <div class="aplayer" data-theme data-mini="true" data-mode="circulation" data-server="netease" data-type="song" data-id="139774" data-volume="0.7">
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/aplayer@1.7.0/dist/APlayer.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/meting@1.1.0/dist/Meting.min.js"></script>
+
+
     
     
     <div class="meta" id="header-meta">
@@ -246,8 +255,8 @@
         
   
     <h1 class="title">
-      <a href="/Lifestyle/musics/index.html">
-        精选歌单
+      <a href="/2019/05/12/nfs/">
+        NFS笔记
       </a>
     </h1>
   
@@ -276,7 +285,7 @@
             <div class="new-meta-item date">
   <a class="notlink">
     <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-04-24</p>
+    <p>2019-05-12</p>
   </a>
 </div>
 
@@ -284,6 +293,14 @@
         
           
             
+  
+  <div class="new-meta-item category">
+    <a href="/categories/Study/Linux学习笔记/" rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>Study&nbsp;/&nbsp;Linux学习笔记</p>
+    </a>
+  </div>
+
 
           
         
@@ -320,11 +337,154 @@
 
       <section class="article typo">
         <div class="article-entry" itemprop="articleBody">
-          <h2 id="送给那些远方的人"><a href="#送给那些远方的人" class="headerlink" title="送给那些远方的人"></a>送给那些远方的人</h2><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="400" height="100" src="//music.163.com/outchain/player?type=2&id=30903117&auto=1&height=66"></iframe>
+          <font size="4">NFS共享目录</font>
 
-<h2 id="一只简简单单的歌单"><a href="#一只简简单单的歌单" class="headerlink" title="一只简简单单的歌单"></a>一只简简单单的歌单</h2><iframe frameborder="yes" border="0" marginwidth="0" marginheight="0" width="400" height="450" src="//music.163.com/outchain/player?type=0&id=2719810283&auto=1&height=430"></iframe>
+<a id="more"></a>
+<p><br></p>
+<ul>
+<li><p>服务端：</p>
+<p>mkdir /tmp/nfs</p>
+<p>vim /etc/exports</p>
+<p>——–&gt;&gt;&gt;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/tmp/nfs 192.168.1.2(可使用*代表所有) (rw,no_root_squash)</span><br><span class="line"></span><br><span class="line">/mnt/cdrom  *(rw,no_root_squash)</span><br></pre></td></tr></table></figure>
+<p>cd /tmp/nfs</p>
+<p>echo 11111 &gt; 11.txt</p>
+<p>echo 2222 &gt; 22.txt</p>
+<p>　　—配置防火墙—</p>
+<p>firewall-cmd –add-service=nfs –permanent </p>
+<p>firewall-cmd –add-service=rpc-bind –permanent </p>
+<p>firewall-cmd –add-service=mountd –permanent </p>
+<p>firewall-cmd –reload </p>
+<p>exportfs -r　　　　　　　　　　　　　—重新加载exportfs—</p>
+<p>systemctl enable nfs-server.service 　　—开机自启—</p>
+<p>systemctl start nfs-server.service　　　　—启动—</p>
+<p>showmount -e 127.0.0.1　　　　　　　—服务器测试—</p>
+<p><br></p>
+</li>
+<li><p>客户端：</p>
+<p>mkdir /mnt/nfs</p>
+<p>showmount -e 192.168.1.1</p>
+<p>mount -t nfs 192.168.1.1:/tmp/nfs /mnt/nfs</p>
+<p>mount -t nfs 192.168.1.1:/mnt/cdrom /mnt/nfscdrom</p>
+<p>vim /etc/fstab</p>
+<p>——-&gt;&gt;&gt;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/192.168.1.1:/tmp/nfs 	/mnt/nfs	iso9660 	defaults        0 0</span><br></pre></td></tr></table></figure>
+<p>df -h　　　　　　　　　—查看磁盘情况—</p>
+<p><br></p>
+</li>
+</ul>
+
         </div>
         
+          
+
+
+  <section class="meta" id="footer-meta">
+    <hr>
+    <div class="new-meta-box">
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-06-18T21:04:40+08:00">
+  <a class="notlink">
+    <i class="fas fa-clock" aria-hidden="true"></i>
+    <p>最后更新于 2019年6月18日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Linux/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>Linux</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/学习笔记/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>学习笔记</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/NFS/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>NFS</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Elilen.github.io/2019/05/12/nfs/&title=NFS笔记 | Mr.EliLen&pics=/img/TX.jpg&summary=NFS共享目录">
+          
+            <img src="/img/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://Elilen.github.io/2019/05/12/nfs/&title=NFS笔记 | Mr.EliLen&pics=/img/TX.jpg&summary=NFS共享目录">
+          
+            <img src="/img/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer" href="http://service.weibo.com/share/share.php?url=https://Elilen.github.io/2019/05/12/nfs/&title=NFS笔记 | Mr.EliLen&pics=/img/TX.jpg&summary=NFS共享目录">
+          
+            <img src="/img/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+            <div class="prev-next">
+                
+                    <section class="prev">
+                        <span class="art-item-left">
+                            <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页</h6>
+                            <h4>
+                                <a href="/2019/05/15/SElinux/" rel="prev" title="SELinux笔记">
+                                  
+                                      SELinux笔记
+                                  
+                                </a>
+                            </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <a class="tag" href="/tags/Linux/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Linux</a> <a class="tag" href="/tags/学习笔记/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>学习笔记</a> <a class="tag" href="/tags/SElinux/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>SElinux</a>
+                                </h6>
+                            
+                        </span>
+                    </section>
+                
+                
+                    <section class="next">
+                        <span class="art-item-right" aria-hidden="true">
+                            <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
+                            <h4>
+                                <a href="/2019/05/08/Firewall-cmd/" rel="prev" title="Firewall-Cmd笔记">
+                                    
+                                        Firewall-Cmd笔记
+                                    
+                                </a>
+                            </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <a class="tag" href="/tags/Linux/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Linux</a> <a class="tag" href="/tags/学习笔记/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>学习笔记</a> <a class="tag" href="/tags/Firewall-cmd/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Firewall-cmd</a>
+                                </h6>
+                            
+                        </span>
+                    </section>
+                
+            </div>
         
       </section>
     </article>
@@ -358,6 +518,13 @@
 <!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
 
 
+
+  <script>
+    window.subData = {
+      title: 'NFS笔记',
+      tools: true
+    }
+  </script>
 
 
 </div>

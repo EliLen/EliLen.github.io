@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
-  <title>精选歌单 | Mr.EliLen</title>
+  <title>SELinux笔记 | Mr.EliLen</title>
   
   <meta name="keywords" content="Web python php">
   
@@ -52,7 +52,7 @@
   
   
   <div class="cover-wrapper">
-    <cover class="cover page half">
+    <cover class="cover post half">
       
         
   <h1 class="title">Eli Len</h1>
@@ -234,11 +234,20 @@
   
 
   
-    <article id="page" class="post white-box article-type-page" itemscope itemprop="blogPost">
+    <article id="post" class="post white-box article-type-post" itemscope itemprop="blogPost">
       
 
 
   <section class="meta">
+    
+      
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.7.0/dist/APlayer.min.css">
+  <div class="aplayer" data-theme data-mini="true" data-mode="circulation" data-server="netease" data-type="song" data-id="139774" data-volume="0.7">
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/aplayer@1.7.0/dist/APlayer.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/meting@1.1.0/dist/Meting.min.js"></script>
+
+
     
     
     <div class="meta" id="header-meta">
@@ -246,8 +255,8 @@
         
   
     <h1 class="title">
-      <a href="/Lifestyle/musics/index.html">
-        精选歌单
+      <a href="/2019/05/15/SElinux/">
+        SELinux笔记
       </a>
     </h1>
   
@@ -276,7 +285,7 @@
             <div class="new-meta-item date">
   <a class="notlink">
     <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-04-24</p>
+    <p>2019-05-15</p>
   </a>
 </div>
 
@@ -284,6 +293,14 @@
         
           
             
+  
+  <div class="new-meta-item category">
+    <a href="/categories/Study/Linux学习笔记/" rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>Study&nbsp;/&nbsp;Linux学习笔记</p>
+    </a>
+  </div>
+
 
           
         
@@ -320,11 +337,166 @@
 
       <section class="article typo">
         <div class="article-entry" itemprop="articleBody">
-          <h2 id="送给那些远方的人"><a href="#送给那些远方的人" class="headerlink" title="送给那些远方的人"></a>送给那些远方的人</h2><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="400" height="100" src="//music.163.com/outchain/player?type=2&id=30903117&auto=1&height=66"></iframe>
+          <font size="4">安全上下文管理工具 SElinux</font>
 
-<h2 id="一只简简单单的歌单"><a href="#一只简简单单的歌单" class="headerlink" title="一只简简单单的歌单"></a>一只简简单单的歌单</h2><iframe frameborder="yes" border="0" marginwidth="0" marginheight="0" width="400" height="450" src="//music.163.com/outchain/player?type=0&id=2719810283&auto=1&height=430"></iframe>
+<a id="more"></a>
+<p><br></p>
+<p><strong>SElinux</strong></p>
+<ul>
+<li><p>查看</p>
+<p>ls –context test.txt</p>
+<p>ls -lZ test.txt            —显示安全上下文—</p>
+</li>
+<li><p>chcon修改安全上下文</p>
+<p>chcon -t etc_t test.txt</p>
+<p>chcon -t httpd_sys_content_t /tmp/web</p>
+</li>
+<li><p>restorecon修改安全上下文为默认值　　　—httpd_sys_content_t—</p>
+<p>修改安全上下文由初始的user_tmp_t修改为默认的httpd_sys_content_t</p>
+<p>restorecon -Rv /tmp/exp</p>
+</li>
+</ul>
+<p><br></p>
+<ul>
+<li><p>semanage 修改安全上下文</p>
+<p>修改SElinux默认目录的安全上下文</p>
+<ul>
+<li><p>语法：</p>
+<p>semanage fcontext -{a|b|m} [-frst] file_name</p>
+</li>
+<li><p>例如：修改默认安全上下文为httpd_sys_content_t</p>
+<p>semanage fcontext -a -t httpd_sys_content_t “/web(/.*)?” （web目录下所有的文件）</p>
+</li>
+<li><p>修改端口安全上下文不用重新加载</p>
+<p>semanage port -l | grep ssh 查看当前允许的端口信息</p>
+<p>semanage port -a -t ssh_port_t -p tcp 1234 添加一个端口到ssh_port_t </p>
+</li>
+<li><p>修改文本文件安全上下文要重新加载</p>
+<p>—强制重新加载安全上下文—</p>
+<p>restorecon        -R/-r 递归        -v 显示过程    -F 强制</p>
+<p>restorecon    -vRF    /web</p>
+</li>
+</ul>
+<p><br><br></p>
+</li>
+</ul>
+<p>getsebool -a　　　—查看所有selinux的布尔值—</p>
+<p>setsebool -P（表示永久生效） ftpd_anon_write on　　　—设置指定的布尔值—</p>
+<p><br></p>
+<p>getenforce　　　　—得到当前的SElinux—</p>
+<p>setenforce　　　　—更改当前的SElinux    1 or 0　—</p>
+
         </div>
         
+          
+
+
+  <section class="meta" id="footer-meta">
+    <hr>
+    <div class="new-meta-box">
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-06-18T21:07:08+08:00">
+  <a class="notlink">
+    <i class="fas fa-clock" aria-hidden="true"></i>
+    <p>最后更新于 2019年6月18日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Linux/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>Linux</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/学习笔记/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>学习笔记</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/SElinux/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>SElinux</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Elilen.github.io/2019/05/15/SElinux/&title=SELinux笔记 | Mr.EliLen&pics=/img/TX.jpg&summary=安全上下文管理工具 SElinux">
+          
+            <img src="/img/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://Elilen.github.io/2019/05/15/SElinux/&title=SELinux笔记 | Mr.EliLen&pics=/img/TX.jpg&summary=安全上下文管理工具 SElinux">
+          
+            <img src="/img/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer" href="http://service.weibo.com/share/share.php?url=https://Elilen.github.io/2019/05/15/SElinux/&title=SELinux笔记 | Mr.EliLen&pics=/img/TX.jpg&summary=安全上下文管理工具 SElinux">
+          
+            <img src="/img/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+            <div class="prev-next">
+                
+                    <section class="prev">
+                        <span class="art-item-left">
+                            <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页</h6>
+                            <h4>
+                                <a href="/2019/05/20/mimikatz/" rel="prev" title="Mimikatz神器">
+                                  
+                                      Mimikatz神器
+                                  
+                                </a>
+                            </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <a class="tag" href="/tags/Tools/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Tools</a> <a class="tag" href="/tags/kali/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>kali</a>
+                                </h6>
+                            
+                        </span>
+                    </section>
+                
+                
+                    <section class="next">
+                        <span class="art-item-right" aria-hidden="true">
+                            <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
+                            <h4>
+                                <a href="/2019/05/12/nfs/" rel="prev" title="NFS笔记">
+                                    
+                                        NFS笔记
+                                    
+                                </a>
+                            </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <a class="tag" href="/tags/Linux/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Linux</a> <a class="tag" href="/tags/学习笔记/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>学习笔记</a> <a class="tag" href="/tags/NFS/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>NFS</a>
+                                </h6>
+                            
+                        </span>
+                    </section>
+                
+            </div>
         
       </section>
     </article>
@@ -358,6 +530,13 @@
 <!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
 
 
+
+  <script>
+    window.subData = {
+      title: 'SELinux笔记',
+      tools: true
+    }
+  </script>
 
 
 </div>

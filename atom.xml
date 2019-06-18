@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://Elilen.github.io/"/>
-  <updated>2019-06-18T10:31:48.048Z</updated>
+  <updated>2019-06-18T13:06:42.558Z</updated>
   <id>https://Elilen.github.io/</id>
   
   <author>
@@ -18,10 +18,10 @@
   
   <entry>
     <title>Mimikatz神器</title>
-    <link href="https://Elilen.github.io/2019/05/15/mimikatz/"/>
-    <id>https://Elilen.github.io/2019/05/15/mimikatz/</id>
-    <published>2019-05-15T06:45:57.000Z</published>
-    <updated>2019-06-18T10:31:48.048Z</updated>
+    <link href="https://Elilen.github.io/2019/05/20/mimikatz/"/>
+    <id>https://Elilen.github.io/2019/05/20/mimikatz/</id>
+    <published>2019-05-20T06:45:57.000Z</published>
+    <updated>2019-06-18T13:06:42.558Z</updated>
     
     <content type="html"><![CDATA[<font size="4">windows密码抓取神器</font><a id="more"></a><h4 id="win密码抓取"><a href="#win密码抓取" class="headerlink" title="win密码抓取"></a>win密码抓取</h4><p><strong>方法一：</strong></p><ol><li><p>运行主程序：<em>mimikatz.exe</em></p></li><li><p>输入：<em>privilege::debug</em>  　　提升权限</p></li><li><p>输入：inject::process lsass.exe sekurlsa.dll　将sekurlsa.dll 注入到lsass.exe 中（运行到这一步会出现拒绝访问的提示）</p></li><li><p>输入：<em>@getLogonPasswords</em>　　即可获取<em>hash</em>和当前用户的明文密码！</p></li></ol><p>原理就是登陆的时候输入的密码，经过 <em>lsass.exe</em> 里的<em>wdigest</em>和<em>tspkg</em>两个模块调用后，它们对之进行加密处理，而没有进行擦除，而且该加密通过特征可以定位，并且按照微软的算法可逆。 只要登陆过，就可以抓出来，它进行枚举的。简单地说，在 <em>Windows</em> 中，当用户登录时，<em>lsass.exe</em> 使用一个可逆的算法，加密过的明文密码，并且把密文保存在内存中，没有清理，然后可以抓出来，还原。 也就是说，开机以后，只要是登陆过的用户，在没重启前（因为重启内存就清零了，这里不包括使用其他方法清理内存），都可以抓出来，注销也是无用的</p><p><strong>方法二（直接调用</strong>sekurlsa模块）</p><ol><li><p>运行主程序：mimikatz.exe</p></li><li><p>输入：privilege::debug　提升权限</p></li><li>输入：sekurlsa::logonPasswords　full</li></ol><h4 id="工具使用"><a href="#工具使用" class="headerlink" title="工具使用"></a><strong>工具使用</strong></h4><p><strong>cmd执行    mimikatz</strong></p><ol><li><p>常规的操作使用命令</p><p>mimikatz # cls 　–&gt;清屏.</p><p>mimikatz # exit 　–&gt;退出mimikatz.</p><p>mimikatz #version 　–&gt;查看当前的mimikatz的版本.</p><p>随便输入”xxx::”，会提示error,可看到所有模块。</p></li></ol><p><img src="img/5/15/clipboard.png" alt="img"></p><p>查看列表中模块的具体参数同样可以输入”模块::”来查看，比如:”inject::”,如图：</p><p>可以看到模块inject的具体参数有pid,process,service等……</p><p><img src="img/5/15/clipboard1.png" alt="img"></p><ol start="2"><li><p>系统方面的操作使用命令:system</p><p>mimikatz #system::user　 –&gt;查看当前登录的系统用户</p><p>mimikazt #system::computer　 –&gt;返回当前的计算机名称</p></li><li><p>在服务器终端的操作命令: ts</p><p>ts::sessions 　–&gt;显示当前的会话</p><p>ts::processes　 –&gt;显示服务器的进程和对应的pid情况等。</p></li><li><p>系统服务相关的操作使用命令:service</p><p><em>service::list</em>   　 –&gt;列出系统的服务</p><p><em>service::remove</em>  　  –&gt;移除系统的服务</p><p><em>service::start stop</em> 服务名称   　 –&gt;启动或停止服务</p></li><li><p>系统进程相关操作的使用命令:process</p><p><em>process::list</em>    　–&gt;列出进程</p><p><em>process::suspend</em> 进程名称  　  –&gt;暂停进程</p><p><em>process::stop</em> 进程名称   　 –&gt;结束进程</p><p><em>process::modules</em>   　 –&gt;列出系统的核心模块及所在位置</p></li><li><p>系统权限相关操作使用命令:<em>privilege</em></p><p><em>privilege::list</em>   　 –&gt;列出权限列表</p><p><em>privilege::enable</em>   　 –&gt;激活一个或多个权限</p><p><em>privilege::debug</em>  　  –&gt;提升权限</p></li><li><p>打开系统文件：<em>nogpo</em></p><p><em>nogpo::cmd</em>   　 –&gt;打开系统的<em>cmd.exe</em></p><p><em>nogpo::regedit</em>  　  –&gt;打开系统的注册表</p><p><em>nogpo::taskmgr</em>   　 –&gt;打开任务管理器</p></li><li><p>获取系统用户信息：sekurlsa</p><p><em>sekurlsa::wdigest</em>   　 –&gt;获取本地用户信息及密码（win2008后无用）</p><p><em>sekurlsa::tspkg</em>  　 –&gt;获取<em>tspkg</em>用户信息及密码</p><p><em>sekurlsa::logonPasswords</em> 　  –&gt;获登陆用户信息及密码</p></li><li><p>系统线程相关操作使用命令:thread</p></li><li><p>系统句柄相关操作使用命令:handle</p></li><li><p>加密相关操作使用命令:crypto</p></li><li><p>注入操作使用命令:inject</p></li></ol>]]></content>
     
@@ -36,16 +36,46 @@
       <category term="Tools" scheme="https://Elilen.github.io/categories/Study/Tools/"/>
     
     
-      <category term="tools" scheme="https://Elilen.github.io/tags/tools/"/>
+      <category term="Tools" scheme="https://Elilen.github.io/tags/Tools/"/>
+    
+      <category term="kali" scheme="https://Elilen.github.io/tags/kali/"/>
     
   </entry>
   
   <entry>
-    <title>Nfs笔记</title>
-    <link href="https://Elilen.github.io/2019/05/10/nfs/"/>
-    <id>https://Elilen.github.io/2019/05/10/nfs/</id>
-    <published>2019-05-10T07:56:57.000Z</published>
-    <updated>2019-06-18T10:23:29.269Z</updated>
+    <title>SELinux笔记</title>
+    <link href="https://Elilen.github.io/2019/05/15/SElinux/"/>
+    <id>https://Elilen.github.io/2019/05/15/SElinux/</id>
+    <published>2019-05-15T07:56:57.000Z</published>
+    <updated>2019-06-18T13:07:08.682Z</updated>
+    
+    <content type="html"><![CDATA[<font size="4">安全上下文管理工具 SElinux</font><a id="more"></a><p><br></p><p><strong>SElinux</strong></p><ul><li><p>查看</p><p>ls –context test.txt</p><p>ls -lZ test.txt            —显示安全上下文—</p></li><li><p>chcon修改安全上下文</p><p>chcon -t etc_t test.txt</p><p>chcon -t httpd_sys_content_t /tmp/web</p></li><li><p>restorecon修改安全上下文为默认值　　　—httpd_sys_content_t—</p><p>修改安全上下文由初始的user_tmp_t修改为默认的httpd_sys_content_t</p><p>restorecon -Rv /tmp/exp</p></li></ul><p><br></p><ul><li><p>semanage 修改安全上下文</p><p>修改SElinux默认目录的安全上下文</p><ul><li><p>语法：</p><p>semanage fcontext -{a|b|m} [-frst] file_name</p></li><li><p>例如：修改默认安全上下文为httpd_sys_content_t</p><p>semanage fcontext -a -t httpd_sys_content_t “/web(/.*)?” （web目录下所有的文件）</p></li><li><p>修改端口安全上下文不用重新加载</p><p>semanage port -l | grep ssh 查看当前允许的端口信息</p><p>semanage port -a -t ssh_port_t -p tcp 1234 添加一个端口到ssh_port_t </p></li><li><p>修改文本文件安全上下文要重新加载</p><p>—强制重新加载安全上下文—</p><p>restorecon        -R/-r 递归        -v 显示过程    -F 强制</p><p>restorecon    -vRF    /web</p></li></ul><p><br><br></p></li></ul><p>getsebool -a　　　—查看所有selinux的布尔值—</p><p>setsebool -P（表示永久生效） ftpd_anon_write on　　　—设置指定的布尔值—</p><p><br></p><p>getenforce　　　　—得到当前的SElinux—</p><p>setenforce　　　　—更改当前的SElinux    1 or 0　—</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;font size=&quot;4&quot;&gt;安全上下文管理工具 SElinux&lt;/font&gt;
+    
+    </summary>
+    
+      <category term="Study" scheme="https://Elilen.github.io/categories/Study/"/>
+    
+      <category term="Linux学习笔记" scheme="https://Elilen.github.io/categories/Study/Linux%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="Linux" scheme="https://Elilen.github.io/tags/Linux/"/>
+    
+      <category term="学习笔记" scheme="https://Elilen.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+      <category term="SElinux" scheme="https://Elilen.github.io/tags/SElinux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>NFS笔记</title>
+    <link href="https://Elilen.github.io/2019/05/12/nfs/"/>
+    <id>https://Elilen.github.io/2019/05/12/nfs/</id>
+    <published>2019-05-12T07:56:57.000Z</published>
+    <updated>2019-06-18T13:04:40.243Z</updated>
     
     <content type="html"><![CDATA[<font size="4">NFS共享目录</font><a id="more"></a><p><br></p><ul><li><p>服务端：</p><p>mkdir /tmp/nfs</p><p>vim /etc/exports</p><p>——–&gt;&gt;&gt;</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/tmp/nfs 192.168.1.2(可使用*代表所有) (rw,no_root_squash)</span><br><span class="line"></span><br><span class="line">/mnt/cdrom  *(rw,no_root_squash)</span><br></pre></td></tr></table></figure><p>cd /tmp/nfs</p><p>echo 11111 &gt; 11.txt</p><p>echo 2222 &gt; 22.txt</p><p>　　—配置防火墙—</p><p>firewall-cmd –add-service=nfs –permanent </p><p>firewall-cmd –add-service=rpc-bind –permanent </p><p>firewall-cmd –add-service=mountd –permanent </p><p>firewall-cmd –reload </p><p>exportfs -r　　　　　　　　　　　　　—重新加载exportfs—</p><p>systemctl enable nfs-server.service 　　—开机自启—</p><p>systemctl start nfs-server.service　　　　—启动—</p><p>showmount -e 127.0.0.1　　　　　　　—服务器测试—</p><p><br></p></li><li><p>客户端：</p><p>mkdir /mnt/nfs</p><p>showmount -e 192.168.1.1</p><p>mount -t nfs 192.168.1.1:/tmp/nfs /mnt/nfs</p><p>mount -t nfs 192.168.1.1:/mnt/cdrom /mnt/nfscdrom</p><p>vim /etc/fstab</p><p>——-&gt;&gt;&gt;</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/192.168.1.1:/tmp/nfs /mnt/nfsiso9660 defaults        0 0</span><br></pre></td></tr></table></figure><p>df -h　　　　　　　　　—查看磁盘情况—</p><p><br></p></li></ul>]]></content>
     
@@ -172,11 +202,11 @@
       <category term="Tools" scheme="https://Elilen.github.io/categories/Study/Tools/"/>
     
     
-      <category term="nmap" scheme="https://Elilen.github.io/tags/nmap/"/>
+      <category term="Tools" scheme="https://Elilen.github.io/tags/Tools/"/>
     
       <category term="kali" scheme="https://Elilen.github.io/tags/kali/"/>
     
-      <category term="Tools" scheme="https://Elilen.github.io/tags/Tools/"/>
+      <category term="nmap" scheme="https://Elilen.github.io/tags/nmap/"/>
     
   </entry>
   
@@ -185,7 +215,7 @@
     <link href="https://Elilen.github.io/2019/04/26/py-encode/"/>
     <id>https://Elilen.github.io/2019/04/26/py-encode/</id>
     <published>2019-04-26T04:01:57.000Z</published>
-    <updated>2019-06-17T14:30:13.959Z</updated>
+    <updated>2019-06-18T13:08:12.082Z</updated>
     
     <content type="html"><![CDATA[<font size="4">python中遇到的编码问题</font><a id="more"></a><p><strong>encode(编码):</strong></p><blockquote><p>按照某种规则将”文本”转换为”字节流”。python3中表示:unicode变成str</p></blockquote><p><strong>decode(解码):</strong></p><blockquote><p>按照某种规则将”字节流”转换成”文本”。python3中表示:str变成unicode</p></blockquote><hr><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line">print(<span class="string">"nsbs"</span>)</span><br></pre></td></tr></table></figure>]]></content>
     
@@ -200,7 +230,11 @@
       <category term="Python" scheme="https://Elilen.github.io/categories/Study/Python/"/>
     
     
-      <category term="python编码" scheme="https://Elilen.github.io/tags/python%E7%BC%96%E7%A0%81/"/>
+      <category term="python" scheme="https://Elilen.github.io/tags/python/"/>
+    
+      <category term="encode" scheme="https://Elilen.github.io/tags/encode/"/>
+    
+      <category term="decode" scheme="https://Elilen.github.io/tags/decode/"/>
     
   </entry>
   
