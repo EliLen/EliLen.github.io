@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
-  <title>Apache笔记 | Mr.EliLen</title>
+  <title>Firewall-Cmd笔记 | Mr.EliLen</title>
   
   <meta name="keywords" content="Web python php">
   
@@ -255,8 +255,8 @@
         
   
     <h1 class="title">
-      <a href="/2019/05/02/Apache/">
-        Apache笔记
+      <a href="/2019/05/08/Firewall-cmd/">
+        Firewall-Cmd笔记
       </a>
     </h1>
   
@@ -285,7 +285,7 @@
             <div class="new-meta-item date">
   <a class="notlink">
     <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-05-02</p>
+    <p>2019-05-08</p>
   </a>
 </div>
 
@@ -337,88 +337,86 @@
 
       <section class="article typo">
         <div class="article-entry" itemprop="articleBody">
-          <p><font size="4">Web 站点建立<font><br><a id="more"></a></font></font></p>
+          <font size="4">Linux防火墙管理工具</font>
+
+<a id="more"></a>
 <p><br></p>
-<h4 id="主机名区分站点"><a href="#主机名区分站点" class="headerlink" title="主机名区分站点"></a><strong>主机名区分站点</strong></h4><ul>
-<li><p>修改dns指定的配置文件</p>
-<p>vim /var/named/scitc.zx</p>
-<p>——&gt;&gt;&gt;</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">	news	IN	CNAME	www</span><br><span class="line">​	oa		IN	CNAME	www</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
 <ul>
-<li><p>创建主配置文件    </p>
-<p>—conf.d是用户自己的配置文件，可以根据http.conf文件改—</p>
-<p>cd /etc/httpd/conf.d</p>
-<p>mkdir <a href="http://www.conf" target="_blank" rel="noopener">www.conf</a></p>
-<p>vim <a href="http://www.conf" target="_blank" rel="noopener">www.conf</a>        —创建并修改主配置文件—</p>
-<p>——&gt;&gt;&gt;</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">	&lt;VirtualHost *:80&gt;						---注意格式---</span><br><span class="line">	</span><br><span class="line">​		ServerName www.scitc.com.cn:80		---网站的域名---</span><br><span class="line"></span><br><span class="line">​		DocumentRoot &quot;/web/scitc/www&quot;		---主配置文件指定的目录---</span><br><span class="line"></span><br><span class="line">​	&lt;/VirtualHost&gt;</span><br><span class="line"></span><br><span class="line">​	&lt;Directory &quot;/web/scitc/www&quot;&gt;		---主配置文件指定的目录---</span><br><span class="line"></span><br><span class="line">​		Require all granted</span><br><span class="line"></span><br><span class="line">​	&lt;/Directory&gt;</span><br></pre></td></tr></table></figure>
+<li><p>启动firewalld服务</p>
+<p>systemctl start firewalld.service</p>
 </li>
-<li><p>创建主配置文件指定的目录</p>
-<p>mkdir -p /web/scitc/www            (-p 是创建子目录)</p>
-<p>cd /web/scitc/www</p>
-<p>echo “This is www”  &gt;  index.html</p>
+<li><p>设置开机自启</p>
+<p>systemctl enable firewalld.service</p>
 </li>
-<li><p>设置/web/scitc/www的安全上下文</p>
-<p>ls -Z /web/scitc/www        —查看安全上下文—</p>
-<p>semanage fcontext -a -t httpd_sys_content_t “/web(/.*)?”</p>
-<p>restorecon -vRF /web        —重新加载安全上下文—    -v显示详细过程</p>
+<li><p>查看firewalld服务状态</p>
+<p>firewall-cmd –state</p>
+<p>systemctl status firewalld </p>
 </li>
-<li><p>重启Apache服务</p>
-<p>systemctl restart httpd.service    —353安全上下文有错—</p>
-<p>Firefox    –测试–</p>
-</li>
-</ul>
-<p><br></p>
-<h4 id="端口区分站点"><a href="#端口区分站点" class="headerlink" title="端口区分站点"></a><strong>端口区分站点</strong></h4><ul>
-<li><p>创建主配置文件    </p>
-<p>—conf.d是用户自己的配置文件，可以根据http.conf文件改—</p>
-<p>cd /etc/httpd/conf.d</p>
-<p>mkdir www10080.conf</p>
-<p>vi www10080.conf</p>
-<p>——-&gt;&gt;&gt;</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">	Listen 10080</span><br><span class="line"></span><br><span class="line">​	&lt;VirtualHost *:10080&gt;						---注意格式---</span><br><span class="line"></span><br><span class="line">​		ServerName www.scitc.com.cn:10080		---网站的域名---</span><br><span class="line"></span><br><span class="line">​		DocumentRoot &quot;/web/scitc/www10080&quot;	  ---主配置文件指定的目录---</span><br><span class="line"></span><br><span class="line">​	&lt;/VirtualHost&gt;</span><br><span class="line"></span><br><span class="line">​	&lt;Directory &quot;/web/scitc/www10080&quot;&gt;		  ---主配置文件指定的目录---</span><br><span class="line"></span><br><span class="line">​		Require all granted</span><br><span class="line"></span><br><span class="line">​	&lt;/Directory&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>创建指定的新的子目录</p>
-<p>mkdir /web/scitc/www10080</p>
-</li>
-<li><p>写入一个新网页</p>
-<p>echo “www10080 www10080 www10080” &gt; index.html</p>
-</li>
-<li><p>允许端口通过防火墙</p>
-<p>firewall-cmd –add-port=10080/tcp –permanent</p>
+<li><p>重新加载firewalld配置</p>
 <p>firewall-cmd –reload</p>
 </li>
-<li><p>修改端口安全上下文</p>
-<p>semanage port -l | grep http        —查看默认的安全上下文配置—</p>
-<p>semanage port -a -t http_port_t -p tcp 10080</p>
-</li>
-<li><p>重新加载Apache服务</p>
-<p>systemctl restart httpd.service</p>
-</li>
-<li><p>测试</p>
-<p>curl <a href="http://www.scitc.com.cn:10080" target="_blank" rel="noopener">www.scitc.com.cn:10080</a></p>
-<p><br></p>
-</li>
 </ul>
-<h4 id="虚拟目录区分站点"><a href="#虚拟目录区分站点" class="headerlink" title="虚拟目录区分站点"></a><strong>虚拟目录区分站点</strong></h4><ul>
-<li><p>创建一个虚拟目录</p>
-<p>mkdir /web/scitc/www/123</p>
-<p>echo “5555555555” &gt; /web/scitc/www/123/index.html</p>
-</li>
-<li><p>修改主配置文件</p>
-<p>——-&gt;&gt;&gt;&gt;添加如下几行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">	&lt;Directory &quot;/web/scitc/www/123&quot;&gt;</span><br><span class="line"></span><br><span class="line">​     	Require all granted</span><br><span class="line"></span><br><span class="line">​	&lt;/Directory&gt;</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<ul>
+<li><p>设置默认区域</p>
+<p>firewall-cmd –get-zones （查看可选区域）</p>
+<p>firewall-cmd –get-default-zone  （查询默认区域）</p>
+<p>firewall-cmd –set-default-zone=public   （设置默认区域为public）</p>
+<p>firewall-cmd –get-default-zone</p>
 </li>
 </ul>
 <p><br></p>
+<ul>
+<li><p>查看public区域的详细配置</p>
+<p>firewall-cmd –zone=public –list-all</p>
+</li>
+</ul>
+<p><br></p>
+<ul>
+<li><p>将server的网卡添加到public区域</p>
+<p>firewall-cmd –zone=public –add-interface=eno16777736</p>
+</li>
+</ul>
+<p><br></p>
+<ul>
+<li><p>–permanent 保存到配置文件中（永久有效）</p>
+</li>
+<li><p>将http服务添加到internal区域中 （允许内网访问http服务）</p>
+<p>firewall-cmd –zone=internal –add-service=http –permanen</p>
+</li>
+<li><p>将http服务添加到public区域中 （允许外网访问http服务）</p>
+<p>firewall-cmd –zone=public –add-service=http –permanent </p>
+</li>
+<li><p>允许外网访问FTP</p>
+<p>firewall-cmd –zone=public –add-service=ftp –permanent</p>
+<p>firewall-cmd –zone-public –add-service=ftp –pemanent</p>
+</li>
+<li><p>删除指定区域SSH服务（禁止外网访问SSH）</p>
+<p>firewall-cmd –zone=public –remove-service=ssh –permanent</p>
+</li>
+<li><p>不允许ping测试（拒绝外网ping回复）</p>
+<p>firewall-cmd –zone=public –list-icmp-blocks （查看）</p>
+<p>firewall-cmd –zone=public –add-icmp-block=echo-request –permanent</p>
+</li>
+<li><p>重载防火墙</p>
+<p>firewall-cmd –reload</p>
+</li>
+</ul>
 <p><br></p>
 <p><br></p>
+<p><strong>// 配置SNAT转发</strong></p>
+<ul>
+<li><p>将连接外网的网卡连接到外网区域</p>
+<p>firewall-cmd –zone=external –change-interface=eno16777736 –permanent</p>
+</li>
+<li><p>将连接内网的网卡连接到内网区域</p>
+<p>firewall-cmd –zone=internal –change-interface=eno33554984 –permanent</p>
+</li>
+<li><p>查看external区域的详细配置</p>
+<p>firewall-cmd –zone=external –list-all （查看masquerade：yes）</p>
+</li>
+</ul>
 <p><br></p>
-<h4 id="所有代码"><a href="#所有代码" class="headerlink" title="所有代码"></a>所有代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/httpd/conf.d</span><br><span class="line"></span><br><span class="line">ls</span><br><span class="line"></span><br><span class="line">vim www.conf</span><br><span class="line"></span><br><span class="line">cp www.conf news.conf</span><br><span class="line"></span><br><span class="line">cp www.conf sports.conf</span><br><span class="line"></span><br><span class="line">vim news.conf </span><br><span class="line"></span><br><span class="line">vim sports.conf </span><br><span class="line"></span><br><span class="line">mkdir -p /srv/www/www</span><br><span class="line"></span><br><span class="line">cd /srv/www</span><br><span class="line"></span><br><span class="line">mkdir news sports</span><br><span class="line"></span><br><span class="line">cd www</span><br><span class="line"></span><br><span class="line">echo &quot;wwwwwwwwwwwwwwwwwwww&quot; &gt; index.html</span><br><span class="line"></span><br><span class="line">cd ..</span><br><span class="line"></span><br><span class="line">cd news/</span><br><span class="line"></span><br><span class="line">echo &quot;newsssssssssssssssssssss&quot; &gt; index.html</span><br><span class="line"></span><br><span class="line">cd ..</span><br><span class="line"></span><br><span class="line">cd sports/</span><br><span class="line"></span><br><span class="line">echo &quot;sportstttttttttttttttt&quot; &gt; index.html</span><br><span class="line"></span><br><span class="line">ls -Z /var/www/html</span><br><span class="line"></span><br><span class="line">cd</span><br><span class="line"></span><br><span class="line">semanage fcontext -a -t httpd_sys_content_t &apos;/srv(/.*)?&apos;</span><br><span class="line"></span><br><span class="line">restorecon -vRF /srv</span><br><span class="line"></span><br><span class="line">systemctl restart httpd</span><br></pre></td></tr></table></figure>
-<p><br></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">cp news.conf news10080.conf</span><br><span class="line"></span><br><span class="line">vim news10080.conf </span><br><span class="line"></span><br><span class="line">mkdir /web/scitc/news10080</span><br><span class="line"></span><br><span class="line">cd /web/scitc/news10080</span><br><span class="line"></span><br><span class="line">echo &quot;1008010080100801008010080100801008010080&quot; &gt; index.html</span><br><span class="line"></span><br><span class="line">firewall-cmd --add-port=10080/tcp --permanent </span><br><span class="line"></span><br><span class="line">firewall-cmd --reload </span><br><span class="line"></span><br><span class="line">semanage port -l | grep http</span><br><span class="line"></span><br><span class="line">semanage port -a -t http_port_t -p tcp 10080</span><br><span class="line"></span><br><span class="line">semanage port -l | grep http</span><br><span class="line"></span><br><span class="line">cd news10080/</span><br><span class="line"></span><br><span class="line">ls -Z index.html </span><br><span class="line"></span><br><span class="line">systemctl restart httpd.service</span><br></pre></td></tr></table></figure>
 
         </div>
         
@@ -430,7 +428,7 @@
     <div class="new-meta-box">
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-06-18T08:30:01+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-06-18T13:31:28+08:00">
   <a class="notlink">
     <i class="fas fa-clock" aria-hidden="true"></i>
     <p>最后更新于 2019年6月18日</p>
@@ -442,7 +440,7 @@
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Linux/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>Linux</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/学习笔记/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>学习笔记</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Linux/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>Linux</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/学习笔记/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>学习笔记</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Firewall-cmd/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>Firewall-cmd</p></a></div>
 
 
         
@@ -453,7 +451,7 @@
   <div class="-mob-share-list share-body">
     
       
-        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Elilen.github.io/2019/05/02/Apache/&title=Apache笔记 | Mr.EliLen&pics=/img/TX.jpg&summary=Web 站点建立">
+        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer" href="http://connect.qq.com/widget/shareqq/index.html?url=https://Elilen.github.io/2019/05/08/Firewall-cmd/&title=Firewall-Cmd笔记 | Mr.EliLen&pics=/img/TX.jpg&summary=Linux防火墙管理工具">
           
             <img src="/img/qq.png">
           
@@ -461,7 +459,7 @@
       
     
       
-        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://Elilen.github.io/2019/05/02/Apache/&title=Apache笔记 | Mr.EliLen&pics=/img/TX.jpg&summary=Web 站点建立">
+        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://Elilen.github.io/2019/05/08/Firewall-cmd/&title=Firewall-Cmd笔记 | Mr.EliLen&pics=/img/TX.jpg&summary=Linux防火墙管理工具">
           
             <img src="/img/qzone.png">
           
@@ -469,7 +467,7 @@
       
     
       
-        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer" href="http://service.weibo.com/share/share.php?url=https://Elilen.github.io/2019/05/02/Apache/&title=Apache笔记 | Mr.EliLen&pics=/img/TX.jpg&summary=Web 站点建立">
+        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer" href="http://service.weibo.com/share/share.php?url=https://Elilen.github.io/2019/05/08/Firewall-cmd/&title=Firewall-Cmd笔记 | Mr.EliLen&pics=/img/TX.jpg&summary=Linux防火墙管理工具">
           
             <img src="/img/weibo.png">
           
@@ -515,16 +513,16 @@
                         <span class="art-item-right" aria-hidden="true">
                             <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
                             <h4>
-                                <a href="/2019/04/29/Nmap/" rel="prev" title="Namp">
+                                <a href="/2019/05/05/Apache/" rel="prev" title="Apache笔记">
                                     
-                                        Namp
+                                        Apache笔记
                                     
                                 </a>
                             </h4>
                             
                                 
                                 <h6 class="tags">
-                                    <a class="tag" href="/tags/nmap/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>nmap</a> <a class="tag" href="/tags/kali/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>kali</a> <a class="tag" href="/tags/Tools/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Tools</a>
+                                    <a class="tag" href="/tags/Linux/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Linux</a> <a class="tag" href="/tags/学习笔记/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>学习笔记</a> <a class="tag" href="/tags/Apache/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Apache</a>
                                 </h6>
                             
                         </span>
@@ -567,7 +565,7 @@
 
   <script>
     window.subData = {
-      title: 'Apache笔记',
+      title: 'Firewall-Cmd笔记',
       tools: true
     }
   </script>
@@ -687,20 +685,6 @@
           
           
             
-  <section class="widget toc-wrapper">
-    
-<header class="pure">
-  <div><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
-  
-    <div class="wrapper"><a class="s-toc rightBtn" rel="external nofollow noopener noreferrer" href="javascript:void(0)"><i class="fas fa-thumbtack fa-fw"></i></a></div>
-  
-</header>
-
-    <div class="content pure">
-      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#主机名区分站点"><span class="toc-text">主机名区分站点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#端口区分站点"><span class="toc-text">端口区分站点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#虚拟目录区分站点"><span class="toc-text">虚拟目录区分站点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#所有代码"><span class="toc-text">所有代码</span></a></li></ol>
-    </div>
-  </section>
-
 
           
         
@@ -726,9 +710,9 @@
         
           <li><a class="flat-box child" title="/categories/Life/daily/" href="/categories/Life/daily/"><div class="name">daily</div><div class="badge">(2)</div></a></li>
         
-          <li><a class="flat-box" title="/categories/Study/" href="/categories/Study/"><div class="name">Study</div><div class="badge">(4)</div></a></li>
+          <li><a class="flat-box" title="/categories/Study/" href="/categories/Study/"><div class="name">Study</div><div class="badge">(6)</div></a></li>
         
-          <li><a class="flat-box child" title="/categories/Study/Linux学习笔记/" href="/categories/Study/Linux学习笔记/"><div class="name">Linux学习笔记</div><div class="badge">(1)</div></a></li>
+          <li><a class="flat-box child" title="/categories/Study/Linux学习笔记/" href="/categories/Study/Linux学习笔记/"><div class="name">Linux学习笔记</div><div class="badge">(3)</div></a></li>
         
           <li><a class="flat-box child" title="/categories/Study/Python/" href="/categories/Study/Python/"><div class="name">Python</div><div class="badge">(1)</div></a></li>
         
@@ -757,7 +741,7 @@
 </header>
 
     <div class="content pure">
-      <a href="/tags/Linux/" style="font-size: 14px; color: #999">Linux</a> <a href="/tags/Tools/" style="font-size: 14px; color: #999">Tools</a> <a href="/tags/hexo/" style="font-size: 24px; color: #555">hexo</a> <a href="/tags/img/" style="font-size: 14px; color: #999">img</a> <a href="/tags/kali/" style="font-size: 14px; color: #999">kali</a> <a href="/tags/nmap/" style="font-size: 14px; color: #999">nmap</a> <a href="/tags/python编码/" style="font-size: 14px; color: #999">python编码</a> <a href="/tags/tools/" style="font-size: 14px; color: #999">tools</a> <a href="/tags/学习笔记/" style="font-size: 14px; color: #999">学习笔记</a> <a href="/tags/随笔/" style="font-size: 14px; color: #999">随笔</a>
+      <a href="/tags/Apache/" style="font-size: 14px; color: #999">Apache</a> <a href="/tags/Firewall-cmd/" style="font-size: 14px; color: #999">Firewall-cmd</a> <a href="/tags/Linux/" style="font-size: 24px; color: #555">Linux</a> <a href="/tags/Tools/" style="font-size: 14px; color: #999">Tools</a> <a href="/tags/Yum源/" style="font-size: 14px; color: #999">Yum源</a> <a href="/tags/hexo/" style="font-size: 19px; color: #777">hexo</a> <a href="/tags/img/" style="font-size: 14px; color: #999">img</a> <a href="/tags/kali/" style="font-size: 14px; color: #999">kali</a> <a href="/tags/nmap/" style="font-size: 14px; color: #999">nmap</a> <a href="/tags/python编码/" style="font-size: 14px; color: #999">python编码</a> <a href="/tags/tools/" style="font-size: 14px; color: #999">tools</a> <a href="/tags/学习笔记/" style="font-size: 24px; color: #555">学习笔记</a> <a href="/tags/随笔/" style="font-size: 14px; color: #999">随笔</a>
     </div>
   </section>
 
