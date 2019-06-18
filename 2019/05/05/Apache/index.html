@@ -348,32 +348,32 @@
 </ul>
 <ul>
 <li><p>创建主配置文件    </p>
-<p>—conf.d是用户自己的配置文件，可以根据http.conf文件改—</p>
+<p> 　　　　—conf.d是用户自己的配置文件，可以根据http.conf文件改—</p>
 <p>cd /etc/httpd/conf.d</p>
 <p>mkdir <a href="http://www.conf" target="_blank" rel="noopener">www.conf</a></p>
-<p>vim <a href="http://www.conf" target="_blank" rel="noopener">www.conf</a>        —创建并修改主配置文件—</p>
+<p>vim <a href="http://www.conf" target="_blank" rel="noopener">www.conf</a>        　　　　　—创建并修改主配置文件—</p>
 <p>——&gt;&gt;&gt;</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">	&lt;VirtualHost *:80&gt;						---注意格式---</span><br><span class="line">	</span><br><span class="line">​		ServerName www.scitc.com.cn:80		---网站的域名---</span><br><span class="line"></span><br><span class="line">​		DocumentRoot &quot;/web/scitc/www&quot;		---主配置文件指定的目录---</span><br><span class="line"></span><br><span class="line">​	&lt;/VirtualHost&gt;</span><br><span class="line"></span><br><span class="line">​	&lt;Directory &quot;/web/scitc/www&quot;&gt;		---主配置文件指定的目录---</span><br><span class="line"></span><br><span class="line">​		Require all granted</span><br><span class="line"></span><br><span class="line">​	&lt;/Directory&gt;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>创建主配置文件指定的目录</p>
-<p>mkdir -p /web/scitc/www            (-p 是创建子目录)</p>
+<p>mkdir -p /web/scitc/www　　　　(-p 是创建子目录)</p>
 <p>cd /web/scitc/www</p>
 <p>echo “This is www”  &gt;  index.html</p>
 </li>
 <li><p>设置/web/scitc/www的安全上下文</p>
-<p>ls -Z /web/scitc/www        —查看安全上下文—</p>
+<p>ls -Z /web/scitc/www　　　　　　—查看安全上下文—</p>
 <p>semanage fcontext -a -t httpd_sys_content_t “/web(/.*)?”</p>
-<p>restorecon -vRF /web        —重新加载安全上下文—    -v显示详细过程</p>
+<p>restorecon -vRF /web　　　　　—重新加载安全上下文—    -v显示详细过程</p>
 </li>
 <li><p>重启Apache服务</p>
-<p>systemctl restart httpd.service    —353安全上下文有错—</p>
-<p>Firefox    –测试–</p>
+<p>systemctl restart httpd.service　　　　—353安全上下文有错—</p>
+<p>Firefox　　　–测试–</p>
 </li>
 </ul>
 <p><br></p>
 <h4 id="端口区分站点"><a href="#端口区分站点" class="headerlink" title="端口区分站点"></a><strong>端口区分站点</strong></h4><ul>
 <li><p>创建主配置文件    </p>
-<p>—conf.d是用户自己的配置文件，可以根据http.conf文件改—</p>
+<p> 　　　—conf.d是用户自己的配置文件，可以根据http.conf文件改—</p>
 <p>cd /etc/httpd/conf.d</p>
 <p>mkdir www10080.conf</p>
 <p>vi www10080.conf</p>
@@ -391,7 +391,7 @@
 <p>firewall-cmd –reload</p>
 </li>
 <li><p>修改端口安全上下文</p>
-<p>semanage port -l | grep http        —查看默认的安全上下文配置—</p>
+<p>semanage port -l | grep http　　　　　—查看默认的安全上下文配置—</p>
 <p>semanage port -a -t http_port_t -p tcp 10080</p>
 </li>
 <li><p>重新加载Apache服务</p>
@@ -431,7 +431,7 @@
     <div class="new-meta-box">
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-06-18T13:32:10+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-06-18T18:24:49+08:00">
   <a class="notlink">
     <i class="fas fa-clock" aria-hidden="true"></i>
     <p>最后更新于 2019年6月18日</p>
@@ -727,9 +727,9 @@
         
           <li><a class="flat-box child" title="/categories/Life/daily/" href="/categories/Life/daily/"><div class="name">daily</div><div class="badge">(2)</div></a></li>
         
-          <li><a class="flat-box" title="/categories/Study/" href="/categories/Study/"><div class="name">Study</div><div class="badge">(6)</div></a></li>
+          <li><a class="flat-box" title="/categories/Study/" href="/categories/Study/"><div class="name">Study</div><div class="badge">(7)</div></a></li>
         
-          <li><a class="flat-box child" title="/categories/Study/Linux学习笔记/" href="/categories/Study/Linux学习笔记/"><div class="name">Linux学习笔记</div><div class="badge">(3)</div></a></li>
+          <li><a class="flat-box child" title="/categories/Study/Linux学习笔记/" href="/categories/Study/Linux学习笔记/"><div class="name">Linux学习笔记</div><div class="badge">(4)</div></a></li>
         
           <li><a class="flat-box child" title="/categories/Study/Python/" href="/categories/Study/Python/"><div class="name">Python</div><div class="badge">(1)</div></a></li>
         
@@ -758,7 +758,7 @@
 </header>
 
     <div class="content pure">
-      <a href="/tags/Apache/" style="font-size: 14px; color: #999">Apache</a> <a href="/tags/Firewall-cmd/" style="font-size: 14px; color: #999">Firewall-cmd</a> <a href="/tags/Linux/" style="font-size: 24px; color: #555">Linux</a> <a href="/tags/Tools/" style="font-size: 14px; color: #999">Tools</a> <a href="/tags/Yum源/" style="font-size: 14px; color: #999">Yum源</a> <a href="/tags/hexo/" style="font-size: 19px; color: #777">hexo</a> <a href="/tags/img/" style="font-size: 14px; color: #999">img</a> <a href="/tags/kali/" style="font-size: 14px; color: #999">kali</a> <a href="/tags/nmap/" style="font-size: 14px; color: #999">nmap</a> <a href="/tags/python编码/" style="font-size: 14px; color: #999">python编码</a> <a href="/tags/tools/" style="font-size: 14px; color: #999">tools</a> <a href="/tags/学习笔记/" style="font-size: 24px; color: #555">学习笔记</a> <a href="/tags/随笔/" style="font-size: 14px; color: #999">随笔</a>
+      <a href="/tags/Apache/" style="font-size: 14px; color: #999">Apache</a> <a href="/tags/Firewall-cmd/" style="font-size: 14px; color: #999">Firewall-cmd</a> <a href="/tags/Linux/" style="font-size: 24px; color: #555">Linux</a> <a href="/tags/NFS/" style="font-size: 14px; color: #999">NFS</a> <a href="/tags/Tools/" style="font-size: 14px; color: #999">Tools</a> <a href="/tags/Yum源/" style="font-size: 14px; color: #999">Yum源</a> <a href="/tags/hexo/" style="font-size: 19px; color: #777">hexo</a> <a href="/tags/img/" style="font-size: 14px; color: #999">img</a> <a href="/tags/kali/" style="font-size: 14px; color: #999">kali</a> <a href="/tags/nmap/" style="font-size: 14px; color: #999">nmap</a> <a href="/tags/python编码/" style="font-size: 14px; color: #999">python编码</a> <a href="/tags/tools/" style="font-size: 14px; color: #999">tools</a> <a href="/tags/学习笔记/" style="font-size: 24px; color: #555">学习笔记</a> <a href="/tags/随笔/" style="font-size: 14px; color: #999">随笔</a>
     </div>
   </section>
 

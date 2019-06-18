@@ -344,11 +344,11 @@
 <ol>
 <li><p>运行主程序：<em>mimikatz.exe</em></p>
 </li>
-<li><p>输入：<em>privilege::debug</em>      提升权限</p>
+<li><p>输入：<em>privilege::debug</em>  　　提升权限</p>
 </li>
-<li><p>输入：inject::process lsass.exe sekurlsa.dll    将sekurlsa.dll 注入到lsass.exe 中（运行到这一步会出现拒绝访问的提示）</p>
+<li><p>输入：inject::process lsass.exe sekurlsa.dll　将sekurlsa.dll 注入到lsass.exe 中（运行到这一步会出现拒绝访问的提示）</p>
 </li>
-<li><p>输入：<em>@getLogonPasswords</em>    即可获取<em>hash</em>和当前用户的明文密码！</p>
+<li><p>输入：<em>@getLogonPasswords</em>　　即可获取<em>hash</em>和当前用户的明文密码！</p>
 </li>
 </ol>
 <p>原理就是登陆的时候输入的密码，经过 <em>lsass.exe</em> 里的<em>wdigest</em>和<em>tspkg</em>两个模块调用后，它们对之进行加密处理，而没有进行擦除，而且该加密通过特征可以定位，并且按照微软的算法可逆。 只要登陆过，就可以抓出来，它进行枚举的。简单地说，在 <em>Windows</em> 中，当用户登录时，<em>lsass.exe</em> 使用一个可逆的算法，加密过的明文密码，并且把密文保存在内存中，没有清理，然后可以抓出来，还原。 也就是说，开机以后，只要是登陆过的用户，在没重启前（因为重启内存就清零了，这里不包括使用其他方法清理内存），都可以抓出来，注销也是无用的</p>
@@ -356,16 +356,16 @@
 <ol>
 <li><p>运行主程序：mimikatz.exe</p>
 </li>
-<li><p>输入：privilege::debug      提升权限</p>
+<li><p>输入：privilege::debug　提升权限</p>
 </li>
-<li>输入：sekurlsa::logonPasswords full</li>
+<li>输入：sekurlsa::logonPasswords　full</li>
 </ol>
 <h4 id="工具使用"><a href="#工具使用" class="headerlink" title="工具使用"></a><strong>工具使用</strong></h4><p><strong>cmd执行    mimikatz</strong></p>
 <ol>
 <li><p>常规的操作使用命令</p>
-<p>mimikatz # cls –&gt;清屏,类似<a href="https://www.2cto.com/os/dos/" target="_blank" rel="noopener">dos</a>命令cls.</p>
-<p>mimikatz # exit –&gt;退出mimikatz.</p>
-<p>mimikatz #version –&gt;查看当前的mimikatz的版本.</p>
+<p>mimikatz # cls 　–&gt;清屏.</p>
+<p>mimikatz # exit 　–&gt;退出mimikatz.</p>
+<p>mimikatz #version 　–&gt;查看当前的mimikatz的版本.</p>
 <p>随便输入”xxx::”，会提示error,可看到所有模块。</p>
 </li>
 </ol>
@@ -375,38 +375,38 @@
 <p><img src="img/5/15/clipboard1.png" alt="img"></p>
 <ol start="2">
 <li><p>系统方面的操作使用命令:system</p>
-<p>mimikatz #system::user –&gt;查看当前登录的系统用户</p>
-<p>mimikazt #system::computer –&gt;返回当前的计算机名称</p>
+<p>mimikatz #system::user　 –&gt;查看当前登录的系统用户</p>
+<p>mimikazt #system::computer　 –&gt;返回当前的计算机名称</p>
 </li>
 <li><p>在服务器终端的操作命令: ts</p>
-<p>ts::sessions –&gt;显示当前的会话</p>
-<p>ts::processes –&gt;显示服务器的进程和对应的pid情况等。</p>
+<p>ts::sessions 　–&gt;显示当前的会话</p>
+<p>ts::processes　 –&gt;显示服务器的进程和对应的pid情况等。</p>
 </li>
 <li><p>系统服务相关的操作使用命令:service</p>
-<p><em>service::list</em>    –&gt;列出系统的服务</p>
-<p><em>service::remove</em>    –&gt;移除系统的服务</p>
-<p><em>service::start stop</em> 服务名称    –&gt;启动或停止服务</p>
+<p><em>service::list</em>   　 –&gt;列出系统的服务</p>
+<p><em>service::remove</em>  　  –&gt;移除系统的服务</p>
+<p><em>service::start stop</em> 服务名称   　 –&gt;启动或停止服务</p>
 </li>
 <li><p>系统进程相关操作的使用命令:process</p>
-<p><em>process::list</em>    –&gt;列出进程</p>
-<p><em>process::suspend</em> 进程名称    –&gt;暂停进程</p>
-<p><em>process::stop</em> 进程名称    –&gt;结束进程</p>
-<p><em>process::modules</em>    –&gt;列出系统的核心模块及所在位置</p>
+<p><em>process::list</em>    　–&gt;列出进程</p>
+<p><em>process::suspend</em> 进程名称  　  –&gt;暂停进程</p>
+<p><em>process::stop</em> 进程名称   　 –&gt;结束进程</p>
+<p><em>process::modules</em>   　 –&gt;列出系统的核心模块及所在位置</p>
 </li>
 <li><p>系统权限相关操作使用命令:<em>privilege</em></p>
-<p><em>privilege::list</em>    –&gt;列出权限列表</p>
-<p><em>privilege::enable</em>    –&gt;激活一个或多个权限</p>
-<p><em>privilege::debug</em>    –&gt;提升权限</p>
+<p><em>privilege::list</em>   　 –&gt;列出权限列表</p>
+<p><em>privilege::enable</em>   　 –&gt;激活一个或多个权限</p>
+<p><em>privilege::debug</em>  　  –&gt;提升权限</p>
 </li>
 <li><p>打开系统文件：<em>nogpo</em></p>
-<p><em>nogpo::cmd</em>    –&gt;打开系统的<em>cmd.exe</em></p>
-<p><em>nogpo::regedit</em>    –&gt;打开系统的注册表</p>
-<p><em>nogpo::taskmgr</em>    –&gt;打开任务管理器</p>
+<p><em>nogpo::cmd</em>   　 –&gt;打开系统的<em>cmd.exe</em></p>
+<p><em>nogpo::regedit</em>  　  –&gt;打开系统的注册表</p>
+<p><em>nogpo::taskmgr</em>   　 –&gt;打开任务管理器</p>
 </li>
 <li><p>获取系统用户信息：sekurlsa</p>
-<p><em>sekurlsa::wdigest</em>    –&gt;获取本地用户信息及密码（win2008后无用）</p>
-<p><em>sekurlsa::tspkg</em>   –&gt;获取<em>tspkg</em>用户信息及密码</p>
-<p><em>sekurlsa::logonPasswords</em>   –&gt;获登陆用户信息及密码</p>
+<p><em>sekurlsa::wdigest</em>   　 –&gt;获取本地用户信息及密码（win2008后无用）</p>
+<p><em>sekurlsa::tspkg</em>  　 –&gt;获取<em>tspkg</em>用户信息及密码</p>
+<p><em>sekurlsa::logonPasswords</em> 　  –&gt;获登陆用户信息及密码</p>
 </li>
 <li><p>系统线程相关操作使用命令:thread</p>
 </li>
@@ -428,10 +428,10 @@
     <div class="new-meta-box">
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-06-17T22:44:55+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-06-18T18:31:48+08:00">
   <a class="notlink">
     <i class="fas fa-clock" aria-hidden="true"></i>
-    <p>最后更新于 2019年6月17日</p>
+    <p>最后更新于 2019年6月18日</p>
   </a>
 </div>
 
@@ -494,16 +494,16 @@
                         <span class="art-item-right" aria-hidden="true">
                             <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
                             <h4>
-                                <a href="/2019/05/08/Firewall-cmd/" rel="prev" title="Firewall-Cmd笔记">
+                                <a href="/2019/05/10/nfs/" rel="prev" title="Nfs笔记">
                                     
-                                        Firewall-Cmd笔记
+                                        Nfs笔记
                                     
                                 </a>
                             </h4>
                             
                                 
                                 <h6 class="tags">
-                                    <a class="tag" href="/tags/Linux/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Linux</a> <a class="tag" href="/tags/学习笔记/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>学习笔记</a> <a class="tag" href="/tags/Firewall-cmd/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Firewall-cmd</a>
+                                    <a class="tag" href="/tags/Linux/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Linux</a> <a class="tag" href="/tags/学习笔记/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>学习笔记</a> <a class="tag" href="/tags/NFS/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>NFS</a>
                                 </h6>
                             
                         </span>
@@ -705,9 +705,9 @@
         
           <li><a class="flat-box child" title="/categories/Life/daily/" href="/categories/Life/daily/"><div class="name">daily</div><div class="badge">(2)</div></a></li>
         
-          <li><a class="flat-box" title="/categories/Study/" href="/categories/Study/"><div class="name">Study</div><div class="badge">(6)</div></a></li>
+          <li><a class="flat-box" title="/categories/Study/" href="/categories/Study/"><div class="name">Study</div><div class="badge">(7)</div></a></li>
         
-          <li><a class="flat-box child" title="/categories/Study/Linux学习笔记/" href="/categories/Study/Linux学习笔记/"><div class="name">Linux学习笔记</div><div class="badge">(3)</div></a></li>
+          <li><a class="flat-box child" title="/categories/Study/Linux学习笔记/" href="/categories/Study/Linux学习笔记/"><div class="name">Linux学习笔记</div><div class="badge">(4)</div></a></li>
         
           <li><a class="flat-box child" title="/categories/Study/Python/" href="/categories/Study/Python/"><div class="name">Python</div><div class="badge">(1)</div></a></li>
         
@@ -736,7 +736,7 @@
 </header>
 
     <div class="content pure">
-      <a href="/tags/Apache/" style="font-size: 14px; color: #999">Apache</a> <a href="/tags/Firewall-cmd/" style="font-size: 14px; color: #999">Firewall-cmd</a> <a href="/tags/Linux/" style="font-size: 24px; color: #555">Linux</a> <a href="/tags/Tools/" style="font-size: 14px; color: #999">Tools</a> <a href="/tags/Yum源/" style="font-size: 14px; color: #999">Yum源</a> <a href="/tags/hexo/" style="font-size: 19px; color: #777">hexo</a> <a href="/tags/img/" style="font-size: 14px; color: #999">img</a> <a href="/tags/kali/" style="font-size: 14px; color: #999">kali</a> <a href="/tags/nmap/" style="font-size: 14px; color: #999">nmap</a> <a href="/tags/python编码/" style="font-size: 14px; color: #999">python编码</a> <a href="/tags/tools/" style="font-size: 14px; color: #999">tools</a> <a href="/tags/学习笔记/" style="font-size: 24px; color: #555">学习笔记</a> <a href="/tags/随笔/" style="font-size: 14px; color: #999">随笔</a>
+      <a href="/tags/Apache/" style="font-size: 14px; color: #999">Apache</a> <a href="/tags/Firewall-cmd/" style="font-size: 14px; color: #999">Firewall-cmd</a> <a href="/tags/Linux/" style="font-size: 24px; color: #555">Linux</a> <a href="/tags/NFS/" style="font-size: 14px; color: #999">NFS</a> <a href="/tags/Tools/" style="font-size: 14px; color: #999">Tools</a> <a href="/tags/Yum源/" style="font-size: 14px; color: #999">Yum源</a> <a href="/tags/hexo/" style="font-size: 19px; color: #777">hexo</a> <a href="/tags/img/" style="font-size: 14px; color: #999">img</a> <a href="/tags/kali/" style="font-size: 14px; color: #999">kali</a> <a href="/tags/nmap/" style="font-size: 14px; color: #999">nmap</a> <a href="/tags/python编码/" style="font-size: 14px; color: #999">python编码</a> <a href="/tags/tools/" style="font-size: 14px; color: #999">tools</a> <a href="/tags/学习笔记/" style="font-size: 24px; color: #555">学习笔记</a> <a href="/tags/随笔/" style="font-size: 14px; color: #999">随笔</a>
     </div>
   </section>
 

@@ -359,9 +359,9 @@
 <p><br></p>
 <ul>
 <li><p>设置默认区域</p>
-<p>firewall-cmd –get-zones （查看可选区域）</p>
-<p>firewall-cmd –get-default-zone  （查询默认区域）</p>
-<p>firewall-cmd –set-default-zone=public   （设置默认区域为public）</p>
+<p>firewall-cmd –get-zones　　　　　　　　—查看可选区域—</p>
+<p>firewall-cmd –get-default-zone　　　　　—查询默认区域—</p>
+<p>firewall-cmd –set-default-zone=public　　—设置默认区域为public—</p>
 <p>firewall-cmd –get-default-zone</p>
 </li>
 </ul>
@@ -379,23 +379,23 @@
 </ul>
 <p><br></p>
 <ul>
-<li><p>–permanent 保存到配置文件中（永久有效）</p>
+<li><p>–permanent 保存到配置文件中　　　　—永久有效—</p>
 </li>
-<li><p>将http服务添加到internal区域中 （允许内网访问http服务）</p>
+<li><p>将http服务添加到internal区域中　　　　—允许内网访问http服务—</p>
 <p>firewall-cmd –zone=internal –add-service=http –permanen</p>
 </li>
-<li><p>将http服务添加到public区域中 （允许外网访问http服务）</p>
+<li><p>将http服务添加到public区域中　　　　　—允许外网访问http服务—</p>
 <p>firewall-cmd –zone=public –add-service=http –permanent </p>
 </li>
 <li><p>允许外网访问FTP</p>
 <p>firewall-cmd –zone=public –add-service=ftp –permanent</p>
 <p>firewall-cmd –zone-public –add-service=ftp –pemanent</p>
 </li>
-<li><p>删除指定区域SSH服务（禁止外网访问SSH）</p>
+<li><p>删除指定区域SSH服务　　　　　　　　　—禁止外网访问SSH—</p>
 <p>firewall-cmd –zone=public –remove-service=ssh –permanent</p>
 </li>
-<li><p>不允许ping测试（拒绝外网ping回复）</p>
-<p>firewall-cmd –zone=public –list-icmp-blocks （查看）</p>
+<li><p>不允许ping测试　　　　　　　　　　　　—拒绝外网ping回复—</p>
+<p>firewall-cmd –zone=public –list-icmp-blocks　　　　—查看—</p>
 <p>firewall-cmd –zone=public –add-icmp-block=echo-request –permanent</p>
 </li>
 <li><p>重载防火墙</p>
@@ -413,7 +413,7 @@
 <p>firewall-cmd –zone=internal –change-interface=eno33554984 –permanent</p>
 </li>
 <li><p>查看external区域的详细配置</p>
-<p>firewall-cmd –zone=external –list-all （查看masquerade：yes）</p>
+<p>firewall-cmd –zone=external –list-all　　　　—查看masquerade：yes—</p>
 </li>
 </ul>
 <p><br></p>
@@ -428,7 +428,7 @@
     <div class="new-meta-box">
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-06-18T13:31:28+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-06-18T18:28:35+08:00">
   <a class="notlink">
     <i class="fas fa-clock" aria-hidden="true"></i>
     <p>最后更新于 2019年6月18日</p>
@@ -493,16 +493,16 @@
                         <span class="art-item-left">
                             <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页</h6>
                             <h4>
-                                <a href="/2019/05/15/mimikatz/" rel="prev" title="Mimikatz神器">
+                                <a href="/2019/05/10/nfs/" rel="prev" title="Nfs笔记">
                                   
-                                      Mimikatz神器
+                                      Nfs笔记
                                   
                                 </a>
                             </h4>
                             
                                 
                                 <h6 class="tags">
-                                    <a class="tag" href="/tags/tools/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>tools</a>
+                                    <a class="tag" href="/tags/Linux/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Linux</a> <a class="tag" href="/tags/学习笔记/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>学习笔记</a> <a class="tag" href="/tags/NFS/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>NFS</a>
                                 </h6>
                             
                         </span>
@@ -710,9 +710,9 @@
         
           <li><a class="flat-box child" title="/categories/Life/daily/" href="/categories/Life/daily/"><div class="name">daily</div><div class="badge">(2)</div></a></li>
         
-          <li><a class="flat-box" title="/categories/Study/" href="/categories/Study/"><div class="name">Study</div><div class="badge">(6)</div></a></li>
+          <li><a class="flat-box" title="/categories/Study/" href="/categories/Study/"><div class="name">Study</div><div class="badge">(7)</div></a></li>
         
-          <li><a class="flat-box child" title="/categories/Study/Linux学习笔记/" href="/categories/Study/Linux学习笔记/"><div class="name">Linux学习笔记</div><div class="badge">(3)</div></a></li>
+          <li><a class="flat-box child" title="/categories/Study/Linux学习笔记/" href="/categories/Study/Linux学习笔记/"><div class="name">Linux学习笔记</div><div class="badge">(4)</div></a></li>
         
           <li><a class="flat-box child" title="/categories/Study/Python/" href="/categories/Study/Python/"><div class="name">Python</div><div class="badge">(1)</div></a></li>
         
@@ -741,7 +741,7 @@
 </header>
 
     <div class="content pure">
-      <a href="/tags/Apache/" style="font-size: 14px; color: #999">Apache</a> <a href="/tags/Firewall-cmd/" style="font-size: 14px; color: #999">Firewall-cmd</a> <a href="/tags/Linux/" style="font-size: 24px; color: #555">Linux</a> <a href="/tags/Tools/" style="font-size: 14px; color: #999">Tools</a> <a href="/tags/Yum源/" style="font-size: 14px; color: #999">Yum源</a> <a href="/tags/hexo/" style="font-size: 19px; color: #777">hexo</a> <a href="/tags/img/" style="font-size: 14px; color: #999">img</a> <a href="/tags/kali/" style="font-size: 14px; color: #999">kali</a> <a href="/tags/nmap/" style="font-size: 14px; color: #999">nmap</a> <a href="/tags/python编码/" style="font-size: 14px; color: #999">python编码</a> <a href="/tags/tools/" style="font-size: 14px; color: #999">tools</a> <a href="/tags/学习笔记/" style="font-size: 24px; color: #555">学习笔记</a> <a href="/tags/随笔/" style="font-size: 14px; color: #999">随笔</a>
+      <a href="/tags/Apache/" style="font-size: 14px; color: #999">Apache</a> <a href="/tags/Firewall-cmd/" style="font-size: 14px; color: #999">Firewall-cmd</a> <a href="/tags/Linux/" style="font-size: 24px; color: #555">Linux</a> <a href="/tags/NFS/" style="font-size: 14px; color: #999">NFS</a> <a href="/tags/Tools/" style="font-size: 14px; color: #999">Tools</a> <a href="/tags/Yum源/" style="font-size: 14px; color: #999">Yum源</a> <a href="/tags/hexo/" style="font-size: 19px; color: #777">hexo</a> <a href="/tags/img/" style="font-size: 14px; color: #999">img</a> <a href="/tags/kali/" style="font-size: 14px; color: #999">kali</a> <a href="/tags/nmap/" style="font-size: 14px; color: #999">nmap</a> <a href="/tags/python编码/" style="font-size: 14px; color: #999">python编码</a> <a href="/tags/tools/" style="font-size: 14px; color: #999">tools</a> <a href="/tags/学习笔记/" style="font-size: 24px; color: #555">学习笔记</a> <a href="/tags/随笔/" style="font-size: 14px; color: #999">随笔</a>
     </div>
   </section>
 
