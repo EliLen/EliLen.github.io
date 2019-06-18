@@ -34,9 +34,9 @@
         <category>Tools</category>
       </categories>
       <tags>
-        <tag>kali</tag>
-        <tag>tools</tag>
         <tag>nmap</tag>
+        <tag>kali</tag>
+        <tag>Tools</tag>
       </tags>
   </entry>
   <entry>
@@ -70,7 +70,7 @@
     <content type="text"><![CDATA[随笔分享一波图]]></content>
       <categories>
         <category>Life</category>
-        <category>img</category>
+        <category>daily</category>
       </categories>
       <tags>
         <tag>img</tag>
