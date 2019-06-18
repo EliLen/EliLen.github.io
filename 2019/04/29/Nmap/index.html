@@ -341,10 +341,9 @@
 
 <a id="more"></a>
 <h2 id="Nmap全面扫描"><a href="#Nmap全面扫描" class="headerlink" title="Nmap全面扫描"></a><strong>Nmap全面扫描</strong></h2><ul>
-<li>单个主机</li>
-</ul>
-<p>​        nmap 192.168.10.10　—等同于全开—</p>
-<ul>
+<li><p>单个主机</p>
+<p>nmap 192.168.10.10　—等同于全开—</p>
+</li>
 <li><p>多个主机</p>
 <p>nmap 192.168.10.11,20,110</p>
 <p>nmap 192.168.10.10,172.168.10.11</p>
@@ -476,41 +475,38 @@
 <p>在调用nmap脚本之前，我们可以先进入<strong>script</strong>目录，用<strong>tab</strong>键自动填充来查看有哪些脚本可用</p>
 <p><code>ls /usr/share/nmap/script/mysql-    //双击tab</code></p>
 <ul>
-<li>扫描时根据需要设置 –script=类别 ：</li>
+<li><p>扫描时根据需要设置 –script=类别 ：</p>
+<p>auth: 负责处理鉴权证书（绕开鉴权）的脚本</p>
+<p>broadcast: 在局域网内探查更多服务开启状况，如dhcp/dns/sqlserver等服务</p>
+<p>brute: 提供暴力破解方式，针对常见的应用如http/snmp等</p>
+<p>default: 使用-sC或-A选项扫描时候默认的脚本，提供基本脚本扫描能力</p>
+<p>discovery: 对网络进行更多的信息，如SMB枚举、SNMP查询等</p>
+<p>dos: 用于进行拒绝服务攻击</p>
+<p>exploit: 利用已知的漏洞入侵系统</p>
+<p>external: 利用第三方的数据库或资源，例如进行whois解析</p>
+<p>fuzzer: 模糊测试的脚本，发送异常的包到目标机，探测出潜在漏洞 </p>
+<p>intrusive: 入侵性的脚本，此类脚本可能引发对方的IDS/IPS的记录或屏蔽</p>
+<p>safe: 此类与intrusive相反，属于安全性脚本</p>
+<p>malware: 探测目标机是否感染了病毒、开启了后门等信息</p>
+<p>version: 负责增强服务与版本扫描（Version Detection）功能的脚本</p>
+<p>vuln: 负责检查目标机是否有常见的漏洞（Vulnerability），如是否有MS08_067</p>
+</li>
 </ul>
-<p>  auth: 负责处理鉴权证书（绕开鉴权）的脚本</p>
-<p>  broadcast: 在局域网内探查更多服务开启状况，如dhcp/dns/sqlserver等服务</p>
-<p>  brute: 提供暴力破解方式，针对常见的应用如http/snmp等</p>
-<p>  default: 使用-sC或-A选项扫描时候默认的脚本，提供基本脚本扫描能力</p>
-<p>  discovery: 对网络进行更多的信息，如SMB枚举、SNMP查询等</p>
-<p>  dos: 用于进行拒绝服务攻击</p>
-<p>  exploit: 利用已知的漏洞入侵系统</p>
-<p>  external: 利用第三方的数据库或资源，例如进行whois解析</p>
-<p>  fuzzer: 模糊测试的脚本，发送异常的包到目标机，探测出潜在漏洞 </p>
-<p>  intrusive: 入侵性的脚本，此类脚本可能引发对方的IDS/IPS的记录或屏蔽</p>
-<p>  safe: 此类与intrusive相反，属于安全性脚本</p>
-<p>  malware: 探测目标机是否感染了病毒、开启了后门等信息</p>
-<p>  version: 负责增强服务与版本扫描（Version Detection）功能的脚本</p>
-<p>  vuln: 负责检查目标机是否有常见的漏洞（Vulnerability），如是否有MS08_067</p>
 <p><br></p>
 <p><strong>0x01 nmap按脚本分类扫描</strong></p>
 <ul>
-<li>负责处理鉴权证书（绕开鉴权）的脚本,也可以作为检测部分应用弱口令</li>
-</ul>
-<p>  nmap –script=auth 192.168.10.10</p>
-<ul>
-<li>提供暴力破解的方式，可对数据库，smb，snmp等进行简单的暴力猜解</li>
-</ul>
-<p>  nmap –script=brute 192.168.10.10</p>
-<ul>
-<li>默认脚本扫描，主要收集各种应用服务的信息，收集后，在针对具体服务进行攻击</li>
-</ul>
-<p>  nmap –script=default 192.168.137.<em> 或者 nmap -sC 192.168.137.</em></p>
-<ul>
-<li>检查是否存在常见漏洞</li>
-</ul>
-<p>  nmap –script=vuln 192.168.10.10</p>
-<ul>
+<li><p>负责处理鉴权证书（绕开鉴权）的脚本,也可以作为检测部分应用弱口令</p>
+<p>nmap –script=auth 192.168.10.10</p>
+</li>
+<li><p>提供暴力破解的方式，可对数据库，smb，snmp等进行简单的暴力猜解</p>
+<p>nmap –script=brute 192.168.10.10</p>
+</li>
+<li><p>默认脚本扫描，主要收集各种应用服务的信息，收集后，在针对具体服务进行攻击</p>
+<p>nmap –script=default 192.168.137.<em> 或者 nmap -sC 192.168.137.</em></p>
+</li>
+<li><p>检查是否存在常见漏洞</p>
+<p>nmap –script=vuln 192.168.10.10</p>
+</li>
 <li><p>在局域网探查更多服务开启状况</p>
 <p>nmap -n -p445 –script=broadcast 192.168.10.10</p>
 </li>
@@ -601,7 +597,7 @@
     <div class="new-meta-box">
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-06-18T18:38:09+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-06-18T18:42:14+08:00">
   <a class="notlink">
     <i class="fas fa-clock" aria-hidden="true"></i>
     <p>最后更新于 2019年6月18日</p>
