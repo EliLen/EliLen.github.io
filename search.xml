@@ -14,7 +14,7 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[SELinux笔记]]></title>
+    <title><![CDATA[SELinux]]></title>
     <url>%2F2019%2F05%2F15%2FSElinux%2F</url>
     <content type="text"><![CDATA[安全上下文管理工具 SElinux SElinux 查看 ls –context test.txt ls -lZ test.txt —显示安全上下文— chcon修改安全上下文 chcon -t etc_t test.txt chcon -t httpd_sys_content_t /tmp/web restorecon修改安全上下文为默认值 —httpd_sys_content_t— 修改安全上下文由初始的user_tmp_t修改为默认的httpd_sys_content_t restorecon -Rv /tmp/exp semanage 修改安全上下文 修改SElinux默认目录的安全上下文 语法： semanage fcontext -{a|b|m} [-frst] file_name 例如：修改默认安全上下文为httpd_sys_content_t semanage fcontext -a -t httpd_sys_content_t “/web(/.*)?” （web目录下所有的文件） 修改端口安全上下文不用重新加载 semanage port -l | grep ssh 查看当前允许的端口信息 semanage port -a -t ssh_port_t -p tcp 1234 添加一个端口到ssh_port_t 修改文本文件安全上下文要重新加载 —强制重新加载安全上下文— restorecon -R/-r 递归 -v 显示过程 -F 强制 restorecon -vRF /web getsebool -a —查看所有selinux的布尔值— setsebool -P（表示永久生效） ftpd_anon_write on —设置指定的布尔值— getenforce —得到当前的SElinux— setenforce —更改当前的SElinux 1 or 0 —]]></content>
       <categories>
@@ -28,7 +28,7 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[NFS笔记]]></title>
+    <title><![CDATA[NFS]]></title>
     <url>%2F2019%2F05%2F12%2Fnfs%2F</url>
     <content type="text"><![CDATA[NFS共享目录 服务端： mkdir /tmp/nfs vim /etc/exports ——–&gt;&gt;&gt; 123/tmp/nfs 192.168.1.2(可使用*代表所有) (rw,no_root_squash)/mnt/cdrom *(rw,no_root_squash) cd /tmp/nfs echo 11111 &gt; 11.txt echo 2222 &gt; 22.txt —配置防火墙— firewall-cmd –add-service=nfs –permanent firewall-cmd –add-service=rpc-bind –permanent firewall-cmd –add-service=mountd –permanent firewall-cmd –reload exportfs -r —重新加载exportfs— systemctl enable nfs-server.service —开机自启— systemctl start nfs-server.service —启动— showmount -e 127.0.0.1 —服务器测试— 客户端： mkdir /mnt/nfs showmount -e 192.168.1.1 mount -t nfs 192.168.1.1:/tmp/nfs /mnt/nfs mount -t nfs 192.168.1.1:/mnt/cdrom /mnt/nfscdrom vim /etc/fstab ——-&gt;&gt;&gt; 1/192.168.1.1:/tmp/nfs /mnt/nfs iso9660 defaults 0 0 df -h —查看磁盘情况—]]></content>
       <categories>
@@ -42,7 +42,7 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Firewall-Cmd笔记]]></title>
+    <title><![CDATA[Firewall-Cmd]]></title>
     <url>%2F2019%2F05%2F08%2FFirewall-cmd%2F</url>
     <content type="text"><![CDATA[Linux防火墙管理工具 启动firewalld服务 systemctl start firewalld.service 设置开机自启 systemctl enable firewalld.service 查看firewalld服务状态 firewall-cmd –state systemctl status firewalld 重新加载firewalld配置 firewall-cmd –reload 设置默认区域 firewall-cmd –get-zones —查看可选区域— firewall-cmd –get-default-zone —查询默认区域— firewall-cmd –set-default-zone=public —设置默认区域为public— firewall-cmd –get-default-zone 查看public区域的详细配置 firewall-cmd –zone=public –list-all 将server的网卡添加到public区域 firewall-cmd –zone=public –add-interface=eno16777736 –permanent 保存到配置文件中 —永久有效— 将http服务添加到internal区域中 —允许内网访问http服务— firewall-cmd –zone=internal –add-service=http –permanen 将http服务添加到public区域中 —允许外网访问http服务— firewall-cmd –zone=public –add-service=http –permanent 允许外网访问FTP firewall-cmd –zone=public –add-service=ftp –permanent firewall-cmd –zone-public –add-service=ftp –pemanent 删除指定区域SSH服务 —禁止外网访问SSH— firewall-cmd –zone=public –remove-service=ssh –permanent 不允许ping测试 —拒绝外网ping回复— firewall-cmd –zone=public –list-icmp-blocks —查看— firewall-cmd –zone=public –add-icmp-block=echo-request –permanent 重载防火墙 firewall-cmd –reload // 配置SNAT转发 将连接外网的网卡连接到外网区域 firewall-cmd –zone=external –change-interface=eno16777736 –permanent 将连接内网的网卡连接到内网区域 firewall-cmd –zone=internal –change-interface=eno33554984 –permanent 查看external区域的详细配置 firewall-cmd –zone=external –list-all —查看masquerade：yes—]]></content>
       <categories>
@@ -56,7 +56,7 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Apache笔记]]></title>
+    <title><![CDATA[Apache]]></title>
     <url>%2F2019%2F05%2F05%2FApache%2F</url>
     <content type="text"><![CDATA[Web 站点建立 主机名区分站点 修改dns指定的配置文件 vim /var/named/scitc.zx ——&gt;&gt;&gt; 12 news IN CNAME www​ oa IN CNAME www 创建主配置文件 —conf.d是用户自己的配置文件，可以根据http.conf文件改— cd /etc/httpd/conf.d mkdir www.conf vim www.conf —创建并修改主配置文件— ——&gt;&gt;&gt; 12345678910111213 &lt;VirtualHost *:80&gt; ---注意格式--- ​ ServerName www.scitc.com.cn:80 ---网站的域名---​ DocumentRoot &quot;/web/scitc/www&quot; ---主配置文件指定的目录---​ &lt;/VirtualHost&gt;​ &lt;Directory &quot;/web/scitc/www&quot;&gt; ---主配置文件指定的目录---​ Require all granted​ &lt;/Directory&gt; 创建主配置文件指定的目录 mkdir -p /web/scitc/www (-p 是创建子目录) cd /web/scitc/www echo “This is www” &gt; index.html 设置/web/scitc/www的安全上下文 ls -Z /web/scitc/www —查看安全上下文— semanage fcontext -a -t httpd_sys_content_t “/web(/.*)?” restorecon -vRF /web —重新加载安全上下文— -v显示详细过程 重启Apache服务 systemctl restart httpd.service —353安全上下文有错— Firefox –测试– 端口区分站点 创建主配置文件 —conf.d是用户自己的配置文件，可以根据http.conf文件改— cd /etc/httpd/conf.d mkdir www10080.conf vi www10080.conf ——-&gt;&gt;&gt; 123456789101112131415 Listen 10080​ &lt;VirtualHost *:10080&gt; ---注意格式---​ ServerName www.scitc.com.cn:10080 ---网站的域名---​ DocumentRoot &quot;/web/scitc/www10080&quot; ---主配置文件指定的目录---​ &lt;/VirtualHost&gt;​ &lt;Directory &quot;/web/scitc/www10080&quot;&gt; ---主配置文件指定的目录---​ Require all granted​ &lt;/Directory&gt; 创建指定的新的子目录 mkdir /web/scitc/www10080 写入一个新网页 echo “www10080 www10080 www10080” &gt; index.html 允许端口通过防火墙 firewall-cmd –add-port=10080/tcp –permanent firewall-cmd –reload 修改端口安全上下文 semanage port -l | grep http —查看默认的安全上下文配置— semanage port -a -t http_port_t -p tcp 10080 重新加载Apache服务 systemctl restart httpd.service 测试 curl www.scitc.com.cn:10080 虚拟目录区分站点 创建一个虚拟目录 mkdir /web/scitc/www/123 echo “5555555555” &gt; /web/scitc/www/123/index.html 修改主配置文件 ——-&gt;&gt;&gt;&gt;添加如下几行 12345 &lt;Directory &quot;/web/scitc/www/123&quot;&gt;​ Require all granted​ &lt;/Directory&gt; 所有代码123456789101112131415161718192021222324252627282930313233343536373839404142434445cd /etc/httpd/conf.dlsvim www.confcp www.conf news.confcp www.conf sports.confvim news.conf vim sports.conf mkdir -p /srv/www/wwwcd /srv/wwwmkdir news sportscd wwwecho &quot;wwwwwwwwwwwwwwwwwwww&quot; &gt; index.htmlcd ..cd news/echo &quot;newsssssssssssssssssssss&quot; &gt; index.htmlcd ..cd sports/echo &quot;sportstttttttttttttttt&quot; &gt; index.htmlls -Z /var/www/htmlcdsemanage fcontext -a -t httpd_sys_content_t &apos;/srv(/.*)?&apos;restorecon -vRF /srvsystemctl restart httpd 12345678910111213141516171819202122232425cp news.conf news10080.confvim news10080.conf mkdir /web/scitc/news10080cd /web/scitc/news10080echo &quot;1008010080100801008010080100801008010080&quot; &gt; index.htmlfirewall-cmd --add-port=10080/tcp --permanent firewall-cmd --reload semanage port -l | grep httpsemanage port -a -t http_port_t -p tcp 10080semanage port -l | grep httpcd news10080/ls -Z index.html systemctl restart httpd.service]]></content>
       <categories>
@@ -70,7 +70,7 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Yum源笔记]]></title>
+    <title><![CDATA[Yum源]]></title>
     <url>%2F2019%2F05%2F02%2Fyum%2F</url>
     <content type="text"><![CDATA[yum源的挂载和使用 yum源挂载 创建，修改 mkdir /mnt/cdrom 创建挂载点 mount /dev/cdrom /mnt/cdrom cd /mnt/cdrom yum-config-manager –add-repo=file:///mnt/cdrom cd /etc/yum.repos.d/ vim mnt_cdrom.repo —–&gt;&gt;&gt; 1​ gpgcheck=0 永久挂载 —光盘格式 iso9660— vim /etc/fstab —–&gt;&gt;&gt; 1/dev/cdrom /mnt/cdrom iso9660 defaults 0 0 mount -a mount -a 将/etc/fstab的所有内容重新加载 mount 是可以显示/etc/fstab的内容。 查看仓库 yum list 搜索/安装/卸载 软件 yum search ftp yum install ftp.x86_64 -y yum remove ftp.x86_64 -y]]></content>
       <categories>
